@@ -1,0 +1,6 @@
+donation_id,food_category,quantity_kg,available_date,expiration_date,requires_cold_storage,is_synthetic
+D001,grains,600,2026-10-17,2027-04-15,False,True
+D002,canned_goods,500,2026-10-17,2027-06-14,False,True
+D003,produce,450,2026-10-17,2026-10-21,True,True
+D004,protein,300,2026-10-17,2026-10-21,True,True
+D005,dairy,200,2026-10-17,2026-10-21,True,True

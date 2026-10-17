@@ -1,0 +1,6 @@
+service_area_id,name,latitude,longitude,population,median_household_income_usd,poverty_rate,no_vehicle_household_rate,low_food_access_population_rate,is_synthetic
+A01,Simulated Richardson area,32.948,-96.729,18000,44000,0.13,0.1,0.21,True
+A02,Simulated South Dallas area,32.735,-96.765,23000,32000,0.24,0.21,0.36,True
+A03,Simulated West Dallas area,32.782,-96.865,20500,37000,0.2,0.16,0.31,True
+A04,Simulated East Dallas area,32.813,-96.701,26000,41000,0.17,0.14,0.28,True
+A05,Simulated Oak Cliff area,32.709,-96.837,24000,35000,0.22,0.18,0.33,True

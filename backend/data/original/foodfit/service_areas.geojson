@@ -1,0 +1,180 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "service_area_id": "A01",
+        "name": "Simulated Richardson area",
+        "is_synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -96.747,
+              32.93
+            ],
+            [
+              -96.711,
+              32.93
+            ],
+            [
+              -96.711,
+              32.966
+            ],
+            [
+              -96.747,
+              32.966
+            ],
+            [
+              -96.747,
+              32.93
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "service_area_id": "A02",
+        "name": "Simulated South Dallas area",
+        "is_synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -96.783,
+              32.717
+            ],
+            [
+              -96.747,
+              32.717
+            ],
+            [
+              -96.747,
+              32.753
+            ],
+            [
+              -96.783,
+              32.753
+            ],
+            [
+              -96.783,
+              32.717
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "service_area_id": "A03",
+        "name": "Simulated West Dallas area",
+        "is_synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -96.883,
+              32.763999999999996
+            ],
+            [
+              -96.847,
+              32.763999999999996
+            ],
+            [
+              -96.847,
+              32.8
+            ],
+            [
+              -96.883,
+              32.8
+            ],
+            [
+              -96.883,
+              32.763999999999996
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "service_area_id": "A04",
+        "name": "Simulated East Dallas area",
+        "is_synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -96.719,
+              32.795
+            ],
+            [
+              -96.68299999999999,
+              32.795
+            ],
+            [
+              -96.68299999999999,
+              32.831
+            ],
+            [
+              -96.719,
+              32.831
+            ],
+            [
+              -96.719,
+              32.795
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "service_area_id": "A05",
+        "name": "Simulated Oak Cliff area",
+        "is_synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -96.855,
+              32.691
+            ],
+            [
+              -96.819,
+              32.691
+            ],
+            [
+              -96.819,
+              32.727000000000004
+            ],
+            [
+              -96.855,
+              32.727000000000004
+            ],
+            [
+              -96.855,
+              32.691
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

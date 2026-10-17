@@ -1,0 +1,25 @@
+{
+  "dataset_name": "FoodFit Synthetic Pantry Operations",
+  "version": "1.0",
+  "generated_for_date": "2026-10-17",
+  "is_synthetic": true,
+  "real_organizations_used": false,
+  "history_start": "2024-10-14",
+  "history_end": "2026-10-11",
+  "random_seed": 20261017,
+  "files": {
+    "service_areas.csv": 5,
+    "pantries.csv": 5,
+    "pantry_hours.csv": 15,
+    "food_categories.csv": 5,
+    "weekly_pantry_history.csv": 520,
+    "weekly_category_demand.csv": 2600,
+    "weekly_inventory_movements.csv": 2600,
+    "attendance_events.csv": 1560,
+    "inventory_batches.csv": 50,
+    "current_inventory.csv": 25,
+    "incoming_donations.csv": 5,
+    "scenario_parameters.csv": 5
+  },
+  "validation": "passed"
+}

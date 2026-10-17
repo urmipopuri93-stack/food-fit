@@ -1,0 +1,6 @@
+food_category,demand_share,requires_cold_storage,typical_shelf_life_days,is_synthetic
+grains,0.3,False,180,True
+canned_goods,0.25,False,240,True
+produce,0.2,True,7,True
+protein,0.15,True,10,True
+dairy,0.1,True,8,True

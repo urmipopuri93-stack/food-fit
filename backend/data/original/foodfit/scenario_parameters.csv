@@ -1,0 +1,6 @@
+parameter,value,unit,is_synthetic
+planning_week_start,2026-10-19,date,True
+forecast_horizon_weeks,1,weeks,True
+minimum_allocation,5,kg,True
+vehicle_capacity,700,kg,True
+allow_partial_fulfillment,True,boolean,True

@@ -1,0 +1,97 @@
+file,column,data_type,unit,description
+service_areas.csv,service_area_id,str,,"Fictional area-level features; IDs are custom, not Census tract identifiers. Rates are fractions."
+service_areas.csv,name,str,,name
+service_areas.csv,latitude,float,,latitude
+service_areas.csv,longitude,float,,longitude
+service_areas.csv,population,int,,population
+service_areas.csv,median_household_income_usd,int,USD,median household income usd
+service_areas.csv,poverty_rate,float,fraction (0-1),poverty rate
+service_areas.csv,no_vehicle_household_rate,float,fraction (0-1),no vehicle household rate
+service_areas.csv,low_food_access_population_rate,float,fraction (0-1),low food access population rate
+service_areas.csv,is_synthetic,bool,,is synthetic
+pantries.csv,pantry_id,str,,Fictional pantry sites and capacities; coordinates are illustrative and do not identify real pantry facilities.
+pantries.csv,name,str,,name
+pantries.csv,service_area_id,str,,service area id
+pantries.csv,latitude,float,,latitude
+pantries.csv,longitude,float,,longitude
+pantries.csv,storage_capacity_kg,int,kg,storage capacity kg
+pantries.csv,cold_storage_capacity_kg,int,kg,cold storage capacity kg
+pantries.csv,weekly_household_capacity,int,,weekly household capacity
+pantries.csv,is_synthetic,bool,,is synthetic
+pantry_hours.csv,pantry_id,str,,Typical recurring FOOD service hours in America/Chicago; not real schedules.
+pantry_hours.csv,day_of_week,str,,day of week
+pantry_hours.csv,opens_at,str,,opens at
+pantry_hours.csv,closes_at,str,,closes at
+pantry_hours.csv,appointment_required,bool,,appointment required
+pantry_hours.csv,is_synthetic,bool,,is synthetic
+food_categories.csv,food_category,str,,Food-category assumptions; all quantities elsewhere use kilograms.
+food_categories.csv,demand_share,float,fraction (0-1),demand share
+food_categories.csv,requires_cold_storage,bool,,requires cold storage
+food_categories.csv,typical_shelf_life_days,int,,typical shelf life days
+food_categories.csv,is_synthetic,bool,,is synthetic
+weekly_pantry_history.csv,pantry_id,str,,104 completed Monday-Sunday weeks per pantry. Requests are synthetic observed outcomes for model targets; unavailable at prediction time. Served counts include repeat visits over time.
+weekly_pantry_history.csv,service_area_id,str,,service area id
+weekly_pantry_history.csv,week_start,date,,week start
+weekly_pantry_history.csv,week_end,date,,week end
+weekly_pantry_history.csv,households_requesting,int,,households requesting
+weekly_pantry_history.csv,household_visits_served,int,,household visits served
+weekly_pantry_history.csv,households_unserved,int,,households unserved
+weekly_pantry_history.csv,individual_service_instances,int,,individual service instances
+weekly_pantry_history.csv,requested_kg,float,kg,requested kg
+weekly_pantry_history.csv,distributed_kg,float,kg,distributed kg
+weekly_pantry_history.csv,unmet_kg,float,kg,unmet kg
+weekly_pantry_history.csv,opening_stock_kg,float,kg,opening stock kg
+weekly_pantry_history.csv,received_kg,float,kg,received kg
+weekly_pantry_history.csv,expired_kg,float,kg,expired kg
+weekly_pantry_history.csv,closing_stock_kg,float,kg,closing stock kg
+weekly_pantry_history.csv,weekly_household_capacity,int,,weekly household capacity
+weekly_pantry_history.csv,is_synthetic,bool,,is synthetic
+weekly_category_demand.csv,pantry_id,str,,"Weekly category requests, distribution, and unmet food quantities; reconciles to pantry history."
+weekly_category_demand.csv,week_start,date,,week start
+weekly_category_demand.csv,week_end,date,,week end
+weekly_category_demand.csv,food_category,str,,food category
+weekly_category_demand.csv,requested_kg,float,kg,requested kg
+weekly_category_demand.csv,distributed_kg,float,kg,distributed kg
+weekly_category_demand.csv,unmet_kg,float,kg,unmet kg
+weekly_category_demand.csv,is_synthetic,bool,,is synthetic
+weekly_inventory_movements.csv,pantry_id,str,,Inventory ledger: opening + received - distributed - expired = closing; consecutive weekly balances reconcile.
+weekly_inventory_movements.csv,week_start,date,,week start
+weekly_inventory_movements.csv,food_category,str,,food category
+weekly_inventory_movements.csv,opening_stock_kg,float,kg,opening stock kg
+weekly_inventory_movements.csv,received_kg,float,kg,received kg
+weekly_inventory_movements.csv,distributed_kg,float,kg,distributed kg
+weekly_inventory_movements.csv,expired_kg,float,kg,expired kg
+weekly_inventory_movements.csv,closing_stock_kg,float,kg,closing stock kg
+weekly_inventory_movements.csv,is_synthetic,bool,,is synthetic
+attendance_events.csv,event_id,str,,Three synthetic service events per week; attendance totals reconcile weekly. Not unique individuals or household identities.
+attendance_events.csv,pantry_id,str,,pantry id
+attendance_events.csv,event_date,date,,event date
+attendance_events.csv,households_requesting,int,,households requesting
+attendance_events.csv,household_visits_served,int,,household visits served
+attendance_events.csv,households_unserved,int,,households unserved
+attendance_events.csv,is_synthetic,bool,,is synthetic
+inventory_batches.csv,batch_id,str,,Current synthetic batch inventory as of 2026-10-17; historical week-end stock carried forward with no assumed intervening movements. Expiry dates support first-expiring-first-out allocation.
+inventory_batches.csv,pantry_id,str,,pantry id
+inventory_batches.csv,food_category,str,,food category
+inventory_batches.csv,quantity_kg,float,kg,quantity kg
+inventory_batches.csv,received_date,date,,received date
+inventory_batches.csv,expiration_date,date,,expiration date
+inventory_batches.csv,requires_cold_storage,bool,,requires cold storage
+inventory_batches.csv,snapshot_date,date,,snapshot date
+inventory_batches.csv,is_synthetic,bool,,is synthetic
+current_inventory.csv,pantry_id,str,,Current category stock; identical in total to inventory_batches. Use one inventory source to avoid double counting.
+current_inventory.csv,food_category,str,,food category
+current_inventory.csv,quantity_kg,float,kg,quantity kg
+current_inventory.csv,snapshot_date,date,,snapshot date
+current_inventory.csv,is_synthetic,bool,,is synthetic
+incoming_donations.csv,donation_id,str,,Available donation pool for a what-if scenario; not yet included in pantry inventory.
+incoming_donations.csv,food_category,str,,food category
+incoming_donations.csv,quantity_kg,int,kg,quantity kg
+incoming_donations.csv,available_date,date,,available date
+incoming_donations.csv,expiration_date,date,,expiration date
+incoming_donations.csv,requires_cold_storage,bool,,requires cold storage
+incoming_donations.csv,is_synthetic,bool,,is synthetic
+scenario_parameters.csv,parameter,str,,"Editable scenario assumptions. Pantry storage, cold storage and household service capacities are separate constraints."
+scenario_parameters.csv,value,str,,value
+scenario_parameters.csv,unit,str,,unit
+scenario_parameters.csv,is_synthetic,bool,,is synthetic

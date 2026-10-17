@@ -1,0 +1,6 @@
+pantry_id,name,service_area_id,latitude,longitude,storage_capacity_kg,cold_storage_capacity_kg,weekly_household_capacity,is_synthetic
+P01,FoodFit Simulated Pantry 1,A01,32.954,-96.734,1800,450,125,True
+P02,FoodFit Simulated Pantry 2,A02,32.741,-96.77,2300,600,160,True
+P03,FoodFit Simulated Pantry 3,A03,32.788,-96.86999999999999,2000,500,140,True
+P04,FoodFit Simulated Pantry 4,A04,32.819,-96.70599999999999,2100,550,145,True
+P05,FoodFit Simulated Pantry 5,A05,32.715,-96.842,2200,550,150,True

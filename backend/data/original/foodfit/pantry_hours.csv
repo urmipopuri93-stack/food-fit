@@ -1,0 +1,16 @@
+pantry_id,day_of_week,opens_at,closes_at,appointment_required,is_synthetic
+P01,Tuesday,09:00,13:00,True,True
+P01,Thursday,14:00,18:00,True,True
+P01,Saturday,09:00,12:00,True,True
+P02,Tuesday,09:00,13:00,False,True
+P02,Thursday,14:00,18:00,False,True
+P02,Saturday,09:00,12:00,False,True
+P03,Tuesday,09:00,13:00,True,True
+P03,Thursday,14:00,18:00,True,True
+P03,Saturday,09:00,12:00,True,True
+P04,Tuesday,09:00,13:00,False,True
+P04,Thursday,14:00,18:00,False,True
+P04,Saturday,09:00,12:00,False,True
+P05,Tuesday,09:00,13:00,True,True
+P05,Thursday,14:00,18:00,True,True
+P05,Saturday,09:00,12:00,True,True
