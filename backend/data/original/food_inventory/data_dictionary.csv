@@ -1,0 +1,17 @@
+Column,Data_Type,Description,Approx_Missing_Pct
+Inventory_ID,string,Unique identifier for each daily inventory record (e.g. INV000001).,None
+Date,"string (date, YYYY-MM-DD)",Calendar date of the inventory record. Spans one year (2025-01-01 to 2025-12-31).,None
+Business_Type,categorical,"Type of business: Restaurant, Supermarket, Cafeteria, Cloud Kitchen.",None
+Food_Category,categorical,"Food category tracked: Fruits, Vegetables, Dairy, Bakery, Meat, Prepared Food.",None
+Purchase_Quantity,integer,Total units purchased/stocked for the day (units).,None
+Units_Sold,integer,Total units sold during the day (units). Always <= Purchase_Quantity.,None
+Remaining_Stock,integer,Units left after sales (Purchase_Quantity - Units_Sold).,None
+Shelf_Life_Days,float (integer-valued),"Number of days before the batch expires, depends on Food_Category.",~2.9%
+Storage_Temperature,float,"Storage temperature in degrees Celsius, depends on Food_Category.",~2.3%
+Daily_Demand,float (integer-valued),"Estimated/realized customer demand for the day (units), affected by Business_Type, Weather, Promotion.",~2.6%
+Promotion,binary (Yes/No),Whether a promotion/discount was running that day.,None
+Weather,categorical,"Weather condition: Sunny, Rainy, Cloudy, Hot.",~2.5%
+Waste_Quantity,integer,Units wasted from Remaining_Stock. Always <= Remaining_Stock.,None
+Waste_Reason,categorical,"Dominant cause of waste: Expired, Overproduction, Low Demand, Storage Issue, or No Waste (no waste occurred).",None
+Donation_Made,binary (Yes/No),Whether wasted-but-still-safe food was donated instead of discarded.,~2.9%
+Waste_Level,categorical (target),"Overall waste severity for the record: Low, Medium, High. Derived from the waste-to-purchase ratio.",None
