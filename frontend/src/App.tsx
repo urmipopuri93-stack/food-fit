@@ -229,7 +229,7 @@ function App() {
         <header className="top-navigation">
           <div className="brand-small">
             <Leaf size={20} />
-            <span>FOODFIT</span>
+            <span>HARVEST GROWTH</span>
           </div>
 
           <nav className="navigation-links" aria-label="Main navigation">
@@ -261,7 +261,7 @@ function App() {
         {/* TITLE BANNER */}
         <div className="dashboard-banner">
           <div>
-            <h1>FOODFIT<span className="brand-dot">.</span></h1>
+            <h1>HARVESTGROWTH<span className="brand-dot">.</span></h1>
             <p>Community Food Dashboard</p>
           </div>
 
