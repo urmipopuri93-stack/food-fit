@@ -17,6 +17,7 @@ import {
   Leaf,
   Bell,
 } from "lucide-react";
+import PantryMap from "./PantryMap";
 
 const colors = {
   blue: "#D7E4EE",
@@ -351,6 +352,9 @@ function App() {
             <StatCard label="Estimated Unmet Need" value="315" detail="Before new allocations" icon={AlertTriangle} />
             <StatCard label="Current Stock Coverage" value="39%" detail="Across the five locations" icon={TrendingUp} />
           </section>
+
+          {/* Map */}
+          <PantryMap />
 
           {/* Main content */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">

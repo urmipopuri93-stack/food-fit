@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { font-family: system-ui, sans-serif; color: #1f2937; }
+.layout { display: grid; grid-template-columns: 280px 1fr; height: 100%; }
+.panel { padding: 16px; border-right: 1px solid #e5e7eb; overflow-y: auto; }
+.panel h1 { font-size: 1.2rem; margin: 0 0 16px; }
+.filter { display: block; font-size: 0.9rem; }
+.filter input { width: 100%; margin-top: 8px; }
+.summary { font-size: 0.85rem; color: #6b7280; }
+.list { list-style: none; padding: 0; margin: 0; }
+.row { display: flex; justify-content: space-between; width: 100%; padding: 8px 10px; margin-bottom: 4px;
+  border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; cursor: pointer; font: inherit; }
+.row:hover { background: #f3f4f6; }
+.row.active { border-color: #b91c1c; background: #fef2f2; }
+.empty { font-size: 0.85rem; color: #6b7280; }
+.map { height: 100%; width: 100%; }
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; grid-template-rows: 40% 60%; }
+  .panel { border-right: 0; border-bottom: 1px solid #e5e7eb; }
+}

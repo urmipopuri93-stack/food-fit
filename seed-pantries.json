@@ -1,0 +1,7 @@
+[
+  {"name": "North Pantry",   "lat": 32.9200, "lng": -96.8000, "props": {"location": "North Dallas",   "demand": 120, "stock": 40, "allocation": 70}},
+  {"name": "West Pantry",    "lat": 32.7800, "lng": -96.8800, "props": {"location": "West Dallas",    "demand": 95,  "stock": 60, "allocation": 30}},
+  {"name": "South Pantry",   "lat": 32.6800, "lng": -96.8000, "props": {"location": "South Dallas",   "demand": 150, "stock": 30, "allocation": 90}},
+  {"name": "East Pantry",    "lat": 32.8100, "lng": -96.7200, "props": {"location": "East Dallas",    "demand": 110, "stock": 50, "allocation": 55}},
+  {"name": "Central Pantry", "lat": 32.7800, "lng": -96.8000, "props": {"location": "Central Dallas", "demand": 100, "stock": 45, "allocation": 50}}
+]
