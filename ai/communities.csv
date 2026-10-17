@@ -1,0 +1,4 @@
+area_id,name,population,low_income_pct,low_food_access_pct,no_vehicle_pct,latitude,longitude
+sample-a,Community A,2000,60,70,40,32.7767,-96.7970
+sample-b,Community B,3000,90,40,20,32.8067,-96.7970
+sample-c,Community C,1500,80,90,60,32.8767,-96.7970
