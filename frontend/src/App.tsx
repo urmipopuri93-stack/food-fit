@@ -25,6 +25,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import PantryMap from "./PantryMap";
 
 type InventoryKey = "kits" | "produce" | "canned" | "dairy" | "hygiene";
 
@@ -315,6 +316,9 @@ function App() {
             detail="Kits assigned in demo"
           />
         </section>
+
+        {/* Map */}
+        <PantryMap />
 
         {/* TOP ROW */}
         <div className="dashboard-grid-top">
