@@ -1,0 +1,418 @@
+/* Dashboard restyle: loads after index.css and overrides it */
+.foodfit-app {
+  --cream: #e6e0c8;
+  --paper: #f4efdd;
+  --paper-2: #fbf8ec;
+  --tan: #ddd5ba;
+  --tan-dark: #cbc3a5;
+  --line: #d5cdb0;
+  --ink: #2f3a2a;
+  --muted: #7a785f;
+  --green: #4e7040;
+  --green-dark: #2e4a2a;
+  --leaf: #8db05e;
+  --pixel: "Silkscreen", monospace;
+
+  min-height: 100vh;
+  padding: 24px 16px;
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  background-color: var(--cream);
+  background-image: radial-gradient(rgba(90, 80, 50, 0.09) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+.foodfit-app *, .foodfit-app *::before, .foodfit-app *::after { box-sizing: border-box; }
+.foodfit-app button, .foodfit-app input { border-radius: 0; font-family: inherit; color: inherit; }
+.foodfit-app button { cursor: pointer; }
+.foodfit-app :focus-visible { outline: 3px solid var(--leaf); outline-offset: 2px; }
+.foodfit-app svg { stroke-width: 2.25; }
+
+.foodfit-app .app-frame {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 22px;
+  background: #eee8d2;
+  border: 3px solid #5b5a45;
+  outline: 2px dotted var(--tan-dark);
+  outline-offset: 7px;
+  box-shadow: 8px 8px 0 var(--tan-dark);
+}
+
+/* top nav */
+.foodfit-app .top-navigation {
+  display: flex; align-items: center; gap: 14px;
+  padding-bottom: 16px; border-bottom: 3px dotted var(--tan-dark);
+}
+.foodfit-app .brand-small { display: flex; align-items: center; gap: 8px; font: 700 1.1rem var(--pixel); letter-spacing: 0.08em; color: var(--green); }
+.foodfit-app .navigation-links { display: flex; flex: 1; flex-wrap: wrap; gap: 6px; }
+.foodfit-app .nav-tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border: 0; border-bottom: 4px solid var(--tan-dark);
+  background: var(--tan); font: 600 0.85rem var(--pixel); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.foodfit-app .nav-tab:hover { background: #e8e1c8; }
+.foodfit-app .nav-tab.active { background: #3e4a38; color: #f7f3e4; border-bottom-color: #232b20; }
+.foodfit-app .nav-slogan { font: 500 0.7rem var(--pixel); letter-spacing: 0.18em; line-height: 1.6; color: var(--muted); text-align: right; }
+
+/* banner */
+.foodfit-app .dashboard-banner {
+  display: grid; grid-template-columns: auto 1fr 300px; align-items: center; gap: 32px;
+  padding: 28px 8px; border-bottom: 3px dotted var(--tan-dark); margin-bottom: 20px;
+}
+.foodfit-app .dashboard-banner h1 {
+  margin: 0; font: 700 clamp(3rem, 6vw, 5.5rem) / 0.9 var(--pixel);
+  color: var(--ink); text-shadow: 4px 4px 0 #b8cc93; letter-spacing: 0.01em;
+}
+.foodfit-app .brand-dot { color: var(--leaf); }
+.foodfit-app .dashboard-banner p { margin: 10px 0 0; font: 600 1.1rem var(--pixel); color: #4a4b40; }
+.foodfit-app .banner-message { font: 500 0.85rem var(--pixel); letter-spacing: 0.22em; line-height: 2; color: #8a8870; }
+.foodfit-app .banner-art-slot {
+  height: 140px; display: flex; align-items: center; justify-content: center;
+  border: 2px dashed var(--tan-dark); font: 500 0.7rem var(--pixel); letter-spacing: 0.15em; color: #a6a38a;
+}
+
+.foodfit-app .notice-bar {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-bottom: 16px; padding: 10px 14px; background: #e6edcb; border-left: 5px solid #6e9a4e; font-size: 0.9rem;
+}
+.foodfit-app .notice-bar button { border: 0; background: transparent; font-size: 1.3rem; line-height: 1; }
+
+/* metrics */
+.foodfit-app .metrics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
+.foodfit-app .metric-card {
+  display: flex; align-items: center; gap: 16px; padding: 18px;
+  background: var(--paper); border: 0; border-bottom: 4px solid var(--tan-dark);
+}
+.foodfit-app .metric-icon { display: flex; flex: none; color: var(--green); background: none; border: 0; padding: 0; }
+.foodfit-app .metric-icon svg { width: 40px; height: 40px; }
+.foodfit-app .metric-label { display: block; font: 600 0.72rem var(--pixel); letter-spacing: 0.1em; text-transform: uppercase; color: #4a4b40; }
+.foodfit-app .metric-value { display: block; font: 700 2.1rem / 1.1 var(--pixel); color: var(--ink); }
+.foodfit-app .metric-detail { display: block; font-size: 0.8rem; color: #5e7f4a; }
+
+/* grids */
+.foodfit-app .dashboard-grid-top, .foodfit-app .dashboard-grid-bottom { display: grid; gap: 16px; margin-bottom: 16px; align-items: stretch; }
+.foodfit-app .dashboard-grid-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); }
+.foodfit-app .dashboard-grid-bottom { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.foodfit-app #impact-section { display: flex; }
+.foodfit-app #impact-section .retro-panel { flex: 1; }
+
+/* panels */
+.foodfit-app .retro-panel { display: flex; flex-direction: column; background: var(--paper); border: 2px solid #6c6a55; box-shadow: 4px 4px 0 var(--tan-dark); }
+.foodfit-app .panel-heading { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--tan); border: 0; border-bottom: 2px solid var(--tan-dark); }
+.foodfit-app .panel-heading h2 { margin: 0; font: 700 0.95rem var(--pixel); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.foodfit-app .panel-content { flex: 1; padding: 16px; }
+.foodfit-app .panel-description { margin: 0 0 14px; font-size: 0.85rem; line-height: 1.5; color: #5b5a48; }
+.foodfit-app .heading-tag { padding: 3px 8px; background: #e9e3cb; font: 500 0.65rem var(--pixel); letter-spacing: 0.1em; color: var(--muted); }
+.foodfit-app .icon-button { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 0; border-bottom: 3px solid #bdb491; background: #e4ddc2; }
+.foodfit-app .tiny-note { margin: 12px 0 0; font-size: 0.75rem; line-height: 1.5; color: var(--muted); }
+
+/* inventory */
+.foodfit-app .inventory-list { margin-bottom: 14px; }
+.foodfit-app .inventory-row { display: grid; grid-template-columns: 1fr auto 48px; align-items: center; gap: 10px; padding: 10px 0; border: 0; border-bottom: 2px dotted var(--line); }
+.foodfit-app .inventory-row:last-child { border-bottom: 0; }
+.foodfit-app .inventory-label { font-size: 0.9rem; font-weight: 600; }
+.foodfit-app .inventory-unit { font-size: 0.78rem; color: var(--muted); }
+.foodfit-app .quantity-controls { display: flex; align-items: center; gap: 4px; }
+.foodfit-app .quantity-controls button { display: flex; align-items: center; justify-content: center; width: 28px; height: 32px; border: 0; border-bottom: 3px solid #bdb491; background: #e4ddc2; }
+.foodfit-app .quantity-controls button:hover { background: #d9d1b3; }
+.foodfit-app .quantity-controls input { width: 64px; height: 32px; padding: 0 6px; text-align: center; font-size: 0.9rem; background: var(--paper-2); border: 2px solid var(--line); appearance: textfield; -moz-appearance: textfield; }
+.foodfit-app .quantity-controls input::-webkit-outer-spin-button, .foodfit-app .quantity-controls input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.foodfit-app .primary-button {
+  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px;
+  border: 0; border-bottom: 5px solid var(--green-dark); background: var(--green); color: #f7f3e4;
+  font: 700 0.95rem var(--pixel); letter-spacing: 0.1em;
+}
+.foodfit-app .primary-button:hover { background: #587c49; }
+.foodfit-app .primary-button:active { transform: translateY(3px); border-bottom-width: 2px; }
+
+/* chart */
+.foodfit-app .allocation-chart { padding: 8px 4px 0; }
+.foodfit-app .chart-bars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: end; }
+.foodfit-app .chart-column { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.foodfit-app .chart-value { font: 700 1.1rem var(--pixel); }
+.foodfit-app .bar-track {
+  display: flex; align-items: flex-end; justify-content: center; width: 100%; height: 200px; border-bottom: 3px solid #4a4b40;
+  background: repeating-linear-gradient(to top, transparent 0 49px, rgba(60, 58, 40, 0.1) 49px 50px);
+}
+.foodfit-app .chart-bar { width: 62%; min-width: 44px; border: 0; }
+.foodfit-app .chart-location { font-size: 0.9rem; font-weight: 700; }
+.foodfit-app .chart-caption { font-size: 0.75rem; color: var(--muted); }
+.foodfit-app .rank-number { padding: 2px 8px; background: var(--tan); font: 600 0.7rem var(--pixel); border: 0; }
+.foodfit-app .allocation-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.foodfit-app .allocation-footer > div { padding: 12px 14px; background: #e9e3cb; border: 0; border-bottom: 3px solid var(--tan-dark); }
+.foodfit-app .small-label { display: block; margin-bottom: 4px; font: 500 0.65rem var(--pixel); letter-spacing: 0.12em; color: var(--muted); }
+.foodfit-app .allocation-footer strong { font: 700 1rem var(--pixel); }
+
+/* guide */
+.foodfit-app .mascot-row { display: grid; grid-template-columns: 130px 1fr; gap: 16px; margin-bottom: 14px; align-items: start; }
+.foodfit-app .mascot-slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 150px; background: #e4e8d3; border: 2px dashed #a9b58a; font: 600 0.9rem var(--pixel); }
+.foodfit-app .mascot-slot small { font-size: 0.6rem; letter-spacing: 0.12em; color: var(--muted); }
+.foodfit-app .speech-bubble { position: relative; padding: 14px; background: #fffdf5; border: 2px solid #4a4b40; font-size: 0.85rem; line-height: 1.5; }
+.foodfit-app .speech-bubble strong { font: 700 0.85rem var(--pixel); letter-spacing: 0.05em; }
+.foodfit-app .speech-bubble p { margin: 6px 0 0; }
+.foodfit-app .speech-bubble::before { content: ""; position: absolute; left: -8px; top: 22px; width: 12px; height: 12px; background: #fffdf5; border-left: 2px solid #4a4b40; border-bottom: 2px solid #4a4b40; transform: rotate(45deg); }
+.foodfit-app .guide-actions { display: flex; flex-direction: column; gap: 8px; }
+.foodfit-app .guide-actions button, .foodfit-app .suggested-questions button {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 11px 12px; text-align: left;
+  font-size: 0.88rem; background: var(--paper-2); border: 2px solid var(--line); border-bottom: 3px solid #c4bb9c;
+}
+.foodfit-app .guide-actions button:hover, .foodfit-app .suggested-questions button:hover { background: #fff; }
+.foodfit-app .guide-actions button svg:first-child, .foodfit-app .suggested-questions button svg { color: var(--green); flex: none; }
+.foodfit-app .guide-actions button svg:last-child { margin-left: auto; }
+
+/* contributions + impact */
+.foodfit-app .contribution-row { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 12px; padding: 10px 0; border: 0; border-bottom: 2px dotted var(--line); }
+.foodfit-app .contribution-symbol { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: #e4e8d3; color: var(--green); border: 0; }
+.foodfit-app .contribution-info strong { display: block; font-size: 0.88rem; }
+.foodfit-app .contribution-info span { font-size: 0.76rem; color: var(--muted); }
+.foodfit-app .contribution-amount { font: 700 0.95rem var(--pixel); color: var(--green); white-space: nowrap; }
+.foodfit-app .text-action { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 4px 0; border: 0; background: transparent; font: 600 0.8rem var(--pixel); letter-spacing: 0.08em; color: var(--green); }
+.foodfit-app .text-action:hover { text-decoration: underline; }
+.foodfit-app .impact-row { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 14px; padding: 12px 0; border: 0; border-bottom: 2px dotted var(--line); }
+.foodfit-app .impact-icon { display: flex; color: var(--green); border: 0; background: none; }
+.foodfit-app .impact-data strong { display: block; margin-bottom: 6px; font-size: 0.85rem; }
+.foodfit-app .impact-bar-row { display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 8px; margin-top: 4px; }
+.foodfit-app .impact-bar-row span { font: 500 0.62rem var(--pixel); letter-spacing: 0.08em; color: var(--muted); }
+.foodfit-app .impact-track { height: 10px; background: #e4ddc2; border: 0; }
+.foodfit-app .impact-fill { height: 100%; border: 0; }
+.foodfit-app .impact-fill.before { background: #5b5c4f; }
+.foodfit-app .impact-fill.after { background: var(--leaf); }
+.foodfit-app .impact-result { padding: 8px 10px; background: #dde6c3; border-bottom: 3px solid #b5c78f; font: 700 0.78rem var(--pixel); color: #3e6330; text-align: center; white-space: nowrap; }
+
+/* chat */
+.foodfit-app .suggested-questions { display: flex; flex-direction: column; gap: 8px; }
+.foodfit-app .chat-answer { margin: 12px 0; padding: 12px 14px; background: #e8eed2; border: 0; border-left: 4px solid #6e9a4e; font-size: 0.85rem; line-height: 1.5; }
+.foodfit-app .chat-answer strong { display: block; margin: 4px 0; }
+.foodfit-app .chat-answer p { margin: 0; }
+.foodfit-app .chat-input { display: flex; margin-top: 12px; }
+.foodfit-app .chat-input input { flex: 1; min-width: 0; padding: 12px; font-size: 0.88rem; background: var(--paper-2); border: 2px solid var(--line); outline: none; }
+.foodfit-app .chat-input input:focus { border-color: #6e9a4e; }
+.foodfit-app .chat-input button { display: flex; align-items: center; justify-content: center; width: 50px; border: 0; border-bottom: 4px solid #161d14; background: var(--ink); color: #f7f3e4; }
+
+.foodfit-app .page-footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; padding-top: 14px; border-top: 3px dotted var(--tan-dark); font: 500 0.7rem var(--pixel); letter-spacing: 0.12em; color: var(--muted); }
+.foodfit-app .page-footer span { display: inline-flex; align-items: center; gap: 6px; }
+
+@media (max-width: 1100px) {
+  .foodfit-app .dashboard-grid-top, .foodfit-app .dashboard-grid-bottom { grid-template-columns: 1fr; }
+  .foodfit-app .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foodfit-app .dashboard-banner { grid-template-columns: 1fr; }
+  .foodfit-app .nav-slogan { display: none; }
+}
+
+/* compact layout */
+.foodfit-app { padding: 12px 10px; }
+.foodfit-app .app-frame { padding: 12px; outline-offset: 5px; box-shadow: 5px 5px 0 var(--tan-dark); }
+
+.foodfit-app .top-navigation { padding-bottom: 10px; gap: 10px; }
+.foodfit-app .nav-tab { padding: 6px 12px; font-size: 0.72rem; border-bottom-width: 3px; }
+.foodfit-app .brand-small { font-size: 0.95rem; }
+.foodfit-app .nav-slogan { font-size: 0.6rem; line-height: 1.4; }
+
+.foodfit-app .dashboard-banner { grid-template-columns: auto 1fr 220px; gap: 20px; padding: 10px 6px; margin-bottom: 12px; }
+.foodfit-app .dashboard-banner h1 { font-size: clamp(2rem, 3.6vw, 3.2rem); text-shadow: 3px 3px 0 #b8cc93; }
+.foodfit-app .dashboard-banner p { margin-top: 4px; font-size: 0.85rem; }
+.foodfit-app .banner-message { font-size: 0.68rem; line-height: 1.7; }
+.foodfit-app .banner-art-slot { height: 64px; font-size: 0.6rem; }
+
+.foodfit-app .metrics-grid { gap: 10px; margin-bottom: 12px; }
+.foodfit-app .metric-card { padding: 10px 14px; gap: 12px; border-bottom-width: 3px; }
+.foodfit-app .metric-icon svg { width: 28px; height: 28px; }
+.foodfit-app .metric-label { font-size: 0.62rem; }
+.foodfit-app .metric-value { font-size: 1.5rem; line-height: 1.05; }
+.foodfit-app .metric-detail { font-size: 0.7rem; }
+
+.foodfit-app .dashboard-grid-top, .foodfit-app .dashboard-grid-bottom { gap: 12px; margin-bottom: 12px; }
+.foodfit-app .retro-panel { box-shadow: 3px 3px 0 var(--tan-dark); }
+.foodfit-app .panel-heading { padding: 8px 12px; }
+.foodfit-app .panel-heading h2 { font-size: 0.8rem; }
+.foodfit-app .panel-content { padding: 10px 12px; }
+.foodfit-app .panel-description { margin-bottom: 8px; font-size: 0.74rem; line-height: 1.4; }
+.foodfit-app .tiny-note { margin-top: 8px; font-size: 0.68rem; line-height: 1.4; }
+
+.foodfit-app .inventory-list { margin-bottom: 10px; }
+.foodfit-app .inventory-row { padding: 5px 0; gap: 8px; }
+.foodfit-app .inventory-label { font-size: 0.8rem; }
+.foodfit-app .inventory-unit { font-size: 0.7rem; }
+.foodfit-app .quantity-controls button { width: 24px; height: 26px; border-bottom-width: 2px; }
+.foodfit-app .quantity-controls input { width: 54px; height: 26px; font-size: 0.8rem; }
+.foodfit-app .primary-button { padding: 9px; font-size: 0.8rem; border-bottom-width: 4px; }
+
+.foodfit-app .allocation-chart { padding-top: 0; }
+.foodfit-app .chart-bars { gap: 14px; }
+.foodfit-app .chart-column { gap: 3px; }
+.foodfit-app .chart-value { font-size: 0.95rem; }
+.foodfit-app .bar-track { height: 120px; background: repeating-linear-gradient(to top, transparent 0 29px, rgba(60, 58, 40, 0.1) 29px 30px); }
+.foodfit-app .chart-location { font-size: 0.8rem; }
+.foodfit-app .chart-caption { font-size: 0.68rem; }
+.foodfit-app .allocation-footer { gap: 8px; margin-top: 10px; }
+.foodfit-app .allocation-footer > div { padding: 7px 10px; }
+.foodfit-app .allocation-footer strong { font-size: 0.85rem; }
+.foodfit-app .small-label { font-size: 0.58rem; margin-bottom: 2px; }
+
+.foodfit-app .mascot-row { grid-template-columns: 100px 1fr; gap: 10px; margin-bottom: 8px; }
+.foodfit-app .mascot-slot { min-height: 100px; font-size: 0.8rem; }
+.foodfit-app .speech-bubble { padding: 9px 10px; font-size: 0.74rem; line-height: 1.4; }
+.foodfit-app .speech-bubble strong { font-size: 0.74rem; }
+.foodfit-app .speech-bubble::before { top: 16px; }
+.foodfit-app .guide-actions { gap: 5px; }
+.foodfit-app .guide-actions button, .foodfit-app .suggested-questions button { padding: 7px 10px; font-size: 0.78rem; gap: 8px; border-bottom-width: 2px; }
+
+.foodfit-app .contribution-row { padding: 5px 0; gap: 10px; grid-template-columns: 30px 1fr auto; }
+.foodfit-app .contribution-symbol { width: 28px; height: 28px; }
+.foodfit-app .contribution-info strong { font-size: 0.78rem; }
+.foodfit-app .contribution-info span { font-size: 0.68rem; }
+.foodfit-app .contribution-amount { font-size: 0.82rem; }
+.foodfit-app .text-action { margin-top: 6px; font-size: 0.7rem; }
+
+.foodfit-app .impact-row { padding: 6px 0; gap: 10px; grid-template-columns: 26px 1fr auto; }
+.foodfit-app .impact-data strong { margin-bottom: 3px; font-size: 0.76rem; }
+.foodfit-app .impact-bar-row { margin-top: 2px; grid-template-columns: 44px 1fr; }
+.foodfit-app .impact-bar-row span { font-size: 0.55rem; }
+.foodfit-app .impact-track { height: 7px; }
+.foodfit-app .impact-result { padding: 5px 8px; font-size: 0.7rem; }
+
+.foodfit-app .suggested-questions { gap: 5px; }
+.foodfit-app .chat-answer { margin: 8px 0; padding: 8px 10px; font-size: 0.76rem; }
+.foodfit-app .chat-input { margin-top: 8px; }
+.foodfit-app .chat-input input { padding: 8px 10px; font-size: 0.78rem; }
+.foodfit-app .chat-input button { width: 40px; }
+
+.foodfit-app .page-footer { margin-top: 10px; padding-top: 8px; font-size: 0.6rem; }
+.foodfit-app .notice-bar { margin-bottom: 10px; padding: 7px 12px; font-size: 0.8rem; }
+
+/* extra tight */
+.foodfit-app { padding: 8px; }
+.foodfit-app .app-frame { padding: 8px; }
+.foodfit-app .top-navigation { padding-bottom: 6px; }
+.foodfit-app .nav-tab { padding: 4px 10px; font-size: 0.66rem; }
+
+.foodfit-app .dashboard-banner { grid-template-columns: auto 1fr 180px; gap: 14px; padding: 4px; margin-bottom: 8px; }
+.foodfit-app .dashboard-banner h1 { font-size: clamp(1.6rem, 2.8vw, 2.4rem); text-shadow: 2px 2px 0 #b8cc93; }
+.foodfit-app .dashboard-banner p { font-size: 0.72rem; margin-top: 2px; }
+.foodfit-app .banner-message { font-size: 0.58rem; line-height: 1.5; }
+.foodfit-app .banner-art-slot { height: 44px; }
+
+.foodfit-app .metrics-grid { gap: 8px; margin-bottom: 8px; }
+.foodfit-app .metric-card { padding: 6px 10px; gap: 8px; border-bottom-width: 2px; }
+.foodfit-app .metric-icon svg { width: 20px; height: 20px; }
+.foodfit-app .metric-label { font-size: 0.55rem; line-height: 1.2; }
+.foodfit-app .metric-value { font-size: 1.15rem; line-height: 1; }
+.foodfit-app .metric-detail { font-size: 0.62rem; line-height: 1.2; }
+
+.foodfit-app .dashboard-grid-top, .foodfit-app .dashboard-grid-bottom { gap: 8px; margin-bottom: 8px; }
+.foodfit-app .panel-heading { padding: 6px 10px; }
+.foodfit-app .panel-content { padding: 8px 10px; }
+.foodfit-app .inventory-row { padding: 3px 0; }
+.foodfit-app .bar-track { height: 90px; background: repeating-linear-gradient(to top, transparent 0 22px, rgba(60, 58, 40, 0.1) 22px 23px); }
+.foodfit-app .mascot-row { grid-template-columns: 80px 1fr; }
+.foodfit-app .mascot-slot { min-height: 80px; }
+.foodfit-app .contribution-row, .foodfit-app .impact-row { padding: 3px 0; }
+.foodfit-app .page-footer { margin-top: 6px; padding-top: 6px; }
+
+
+
+
+
+/* combined guide + ask foodfit, paste at the very bottom of dashboard.css */
+.foodfit-app .dashboard-main { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: 8px; align-items: stretch; margin-bottom: 8px; }
+.foodfit-app .dashboard-left { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.foodfit-app .dashboard-left .dashboard-grid-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); margin-bottom: 0; }
+.foodfit-app .dashboard-left .dashboard-grid-bottom { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 0; }
+
+.foodfit-app .guide-panel .panel-content { display: flex; flex-direction: column; }
+.foodfit-app .guide-content { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.foodfit-app .guide-panel .mascot-row { grid-template-columns: 110px 1fr; margin-bottom: 0; }
+.foodfit-app .guide-panel .mascot-slot { min-height: 130px; }
+.foodfit-app .chat-section { flex: 1; display: flex; flex-direction: column; padding-top: 10px; border-top: 2px dotted var(--line); }
+.foodfit-app .chat-section .chat-input { margin-top: auto; }
+.foodfit-app .sub-heading { display: flex; align-items: center; gap: 6px; margin: 0 0 4px; font: 700 0.8rem var(--pixel); letter-spacing: 0.08em; text-transform: uppercase; }
+
+@media (max-width: 1100px) {
+  .foodfit-app .dashboard-main { grid-template-columns: 1fr; }
+  .foodfit-app .dashboard-left .dashboard-grid-top, .foodfit-app .dashboard-left .dashboard-grid-bottom { grid-template-columns: 1fr; }
+}
+
+
+/* floating mascot chat: paste at the very bottom of dashboard.css */
+.foodfit-app { padding-bottom: 110px; }
+.foodfit-app .dashboard-main { grid-template-columns: 1fr; }
+
+.foodfit-app .chat-widget { position: fixed; right: 20px; bottom: 20px; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.foodfit-app .mascot-fab {
+  display: flex; align-items: center; justify-content: center; width: 88px; height: 88px; padding: 0;
+  background: var(--paper); border: 3px solid #6c6a55; border-radius: 50%; box-shadow: 4px 4px 0 var(--tan-dark);
+  transition: transform 0.15s;
+}
+.foodfit-app .mascot-fab:hover { transform: translateY(-3px); }
+.foodfit-app .mascot-fab svg { stroke-width: 0; }
+
+.foodfit-app .chat-window {
+  display: flex; flex-direction: column; width: min(360px, calc(100vw - 40px)); max-height: min(540px, 72vh);
+  background: var(--paper); border: 2px solid #6c6a55; border-radius: 16px; box-shadow: 4px 4px 0 var(--tan-dark);
+  overflow: hidden; animation: chat-pop 0.15s ease-out;
+}
+.foodfit-app .chat-window-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--tan); border-bottom: 2px solid var(--tan-dark); }
+.foodfit-app .chat-window-title { display: flex; align-items: center; gap: 8px; font: 700 0.85rem var(--pixel); letter-spacing: 0.08em; text-transform: uppercase; }
+.foodfit-app .chat-window-body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 12px; overflow-y: auto; }
+.foodfit-app .chat-window .speech-bubble::before { display: none; }
+.foodfit-app .chat-window .chat-input { margin: 0; padding: 0 12px; }
+.foodfit-app .chat-window .tiny-note { margin: 6px 0 0; padding: 0 12px 10px; }
+
+@keyframes chat-pop { from { opacity: 0; transform: translateY(8px) scale(0.97); } }
+@media (prefers-reduced-motion: reduce) {
+  .foodfit-app .chat-window { animation: none; }
+  .foodfit-app .mascot-fab { transition: none; }
+}
+
+/* contributions + impact merged, 3 panels on one row: paste at the very bottom of dashboard.css */
+@media (min-width: 1101px) {
+  .foodfit-app .dashboard-left .dashboard-grid-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1.2fr); }
+}
+.foodfit-app .contribution-card { padding: 6px 0; border-bottom: 2px dotted var(--line); }
+.foodfit-app .contribution-card:last-child { border-bottom: 0; }
+.foodfit-app .contribution-card .contribution-row { padding: 0 0 4px; border-bottom: 0; }
+.foodfit-app .contribution-impact { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding-left: 40px; }
+.foodfit-app .impact-label { display: block; margin-bottom: 2px; font-size: 0.66rem; color: var(--muted); }
+
+
+/* bigger title + panels fill the row evenly: paste at the very bottom of dashboard.css */
+.foodfit-app .dashboard-banner { grid-template-columns: auto minmax(0, 1fr) minmax(0, 180px); padding: 8px 4px; gap: 24px; }
+.foodfit-app .dashboard-banner h1 { font-size: clamp(2.6rem, 5.4vw, 4.6rem); white-space: nowrap; text-shadow: 3px 3px 0 #b8cc93; }
+.foodfit-app .dashboard-banner p { font-size: 0.95rem; }
+.foodfit-app .banner-message { font-size: 0.64rem; }
+
+/* tighter contributions so the row is shorter */
+.foodfit-app .contribution-card { padding: 4px 0; }
+.foodfit-app .contribution-card .contribution-row { padding-bottom: 2px; }
+.foodfit-app .impact-label { margin-bottom: 0; font-size: 0.6rem; }
+.foodfit-app .impact-bar-row { margin-top: 1px; }
+.foodfit-app .impact-track { height: 6px; }
+.foodfit-app .impact-result { padding: 3px 8px; font-size: 0.66rem; }
+.foodfit-app .panel-description { margin-bottom: 6px; }
+.foodfit-app .text-action { margin-top: 4px; }
+.foodfit-app .tiny-note { margin-top: 4px; }
+
+/* inventory and chart stretch to fill their panels (no empty space at the bottom) */
+.foodfit-app .dashboard-grid-top .panel-content { display: flex; flex-direction: column; }
+.foodfit-app .inventory-list { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-bottom: 8px; }
+.foodfit-app .allocation-chart { flex: 1; display: flex; flex-direction: column; }
+.foodfit-app .chart-bars { flex: 1; align-items: stretch; }
+.foodfit-app .chart-column { height: 100%; }
+.foodfit-app .bar-track { position: relative; flex: 1; height: auto; min-height: 90px; }
+.foodfit-app .chart-bar { position: absolute; bottom: 0; left: 19%; width: 62%; }
+
+/* match the mockup fonts: paste at the very bottom of dashboard.css */
+.foodfit-app {
+  --pixel: "Chakra Petch", sans-serif;
+  font-family: "Inter Variable", system-ui, sans-serif;
+}
+
+/* title: only H and G are pixelated */
+.foodfit-app .dashboard-banner h1 { font-family: "Chakra Petch", sans-serif; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.foodfit-app .logo-pixel { font-family: "Pixelify Sans Variable", monospace; font-size: 1.15em; }
+
+/* these were mixed case in the mockup */
+.foodfit-app .dashboard-banner p,
+.foodfit-app .contribution-amount,
+.foodfit-app .impact-result,
+.foodfit-app .allocation-footer strong { text-transform: none; letter-spacing: 0.02em; }
