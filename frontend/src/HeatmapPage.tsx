@@ -6,6 +6,7 @@ import type { FeatureCollection, Geometry } from "geojson";
 import "leaflet/dist/leaflet.css";
 import "./heatmap.css";
 import WhatIfSimulator from "./WhatIfSimulator";
+import { areaCenter, distanceKm, withinRadius } from './utils/radius.mjs';
 
 type TabId = "combined" | "transportation" | "access" | "income";
 
@@ -107,6 +108,52 @@ export default function HeatmapPage() {
   const [tab, setTab] = useState<TabId>("combined");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [simulationArea, setSimulationArea] = useState("");
+  const [center, setCenter] = useState<[number, number] | null>(null);
+  const [radius, setRadius] = useState(10);
+  const [radiusApplied, setRadiusApplied] = useState(false);
+  const [picking, setPicking] = useState(false);
+  const pickingRef = useRef(false);
+  const locationRequest = useRef(0);
+  const [locationMessage, setLocationMessage] = useState('');
+  const [locating, setLocating] = useState(false);
+  const [incomeOnly, setIncomeOnly] = useState(false);
+  const centers = useMemo(() => new Map(data?.features.map(f => [f.properties.GEOID, areaCenter(f.geometry)]) ?? []), [data]);
+  const visibleData = useMemo<TractData | null>(() => data ? ({ ...data, features: data.features.filter(f =>
+    (!center || !radiusApplied || withinRadius(center, centers.get(f.properties.GEOID) ?? null, radius)) &&
+    (!incomeOnly || f.properties.income_score >= 75)) }) : null, [data, center, centers, radius, radiusApplied, incomeOnly]);
+
+  function useMyLocation() {
+    const request = ++locationRequest.current;
+    if (!navigator.geolocation) { setLocationMessage('Location is unavailable in this browser. Choose a spot on the map instead.'); return; }
+    setLocating(true); setLocationMessage('Finding your location...');
+    navigator.geolocation.getCurrentPosition(position => {
+      if (request !== locationRequest.current) return;
+      setCenter([position.coords.latitude, position.coords.longitude]);
+      setRadiusApplied(false); setSimulationArea(''); setLocating(false);
+      setLocationMessage(`Using your location (accuracy about ${Math.round(position.coords.accuracy)} meters).`);
+    }, () => {
+      if (request !== locationRequest.current) return;
+      setLocating(false); setLocationMessage('Could not get your location. Allow location access or choose a spot on the map.');
+    }, { timeout: 10000, maximumAge: 60000 });
+  }
+
+  useEffect(() => {
+    if (!center || !map.current) return;
+    const group = L.layerGroup().addTo(map.current);
+    if (radiusApplied) {
+      const circle = L.circle(center, { radius: radius * 1000, color: '#264f83', fill: false, weight: 2, interactive: false }).addTo(group);
+      map.current.fitBounds(circle.getBounds(), { padding: [20,20] });
+    } else {
+      map.current.setView(center, 10);
+    }
+    L.circleMarker(center, { radius: 6, color: '#264f83', fillOpacity: 1 }).bindTooltip('Your search location').addTo(group);
+    return () => { group.remove(); };
+  }, [center, radius, radiusApplied]);
+
+  useEffect(() => {
+    if (simulationArea && !visibleData?.features.some(f => f.properties.GEOID === simulationArea)) setSimulationArea('');
+  }, [visibleData, simulationArea]);
 
   const current = TABS.find((t) => t.id === tab)!;
 
@@ -122,8 +169,19 @@ export default function HeatmapPage() {
     }).addTo(m);
 
     map.current = m;
+    const pickLocation = (event: MouseEvent) => {
+      if (!pickingRef.current) return;
+      event.preventDefault(); event.stopPropagation();
+      const point = m.mouseEventToLatLng(event);
+      ++locationRequest.current; setLocating(false);
+      setCenter([point.lat, point.lng]); setRadiusApplied(false); setSimulationArea('');
+      pickingRef.current = false; setPicking(false);
+      setLocationMessage('Using the spot you selected on the map.');
+    };
+    m.getContainer().addEventListener('click', pickLocation, true);
 
     return () => {
+      m.getContainer().removeEventListener('click', pickLocation, true);
       m.remove();
       map.current = null;
       tractLayer.current = null;
@@ -182,9 +240,9 @@ export default function HeatmapPage() {
 
   // Rank census tracts by the selected model score.
   const rows = useMemo(() => {
-    if (!data) return [];
+    if (!visibleData) return [];
 
-    return data.features
+    return visibleData.features
       .map((feature) => feature.properties)
       .filter(
         (p): p is TractProperties =>
@@ -194,12 +252,12 @@ export default function HeatmapPage() {
           p.TotalPop > 0
       )
       .sort((a, b) => valueFor(b, tab) - valueFor(a, tab));
-  }, [data, tab]);
+  }, [visibleData, tab]);
 
   // Render actual census tract polygons using ML scores.
   useEffect(() => {
     const m = map.current;
-    if (!m || !data) return;
+    if (!m || !visibleData) return;
 
     if (tractLayer.current) {
       m.removeLayer(tractLayer.current);
@@ -207,7 +265,8 @@ export default function HeatmapPage() {
 
     polygonLayers.current.clear();
 
-    const layer = L.geoJSON(data, {
+    const layer = L.geoJSON(visibleData, {
+      bubblingMouseEvents: true,
       style: (feature) => {
         const score = feature?.properties
           ? valueFor(feature.properties, tab)
@@ -232,6 +291,7 @@ export default function HeatmapPage() {
         }
 
         const score = valueFor(p, tab);
+        featureLayer.on("click", () => { if (!pickingRef.current) setSimulationArea(p.GEOID); });
 
         featureLayer.bindPopup(`
           <div style="min-width:180px;line-height:1.6">
@@ -271,9 +331,10 @@ export default function HeatmapPage() {
       });
       initialBoundsSet.current = true;
     }
-  }, [data, tab, current.label, current.ramp]);
+  }, [visibleData, tab, current.label, current.ramp]);
 
   function focusOnTract(geoid: string) {
+    setSimulationArea(geoid);
     const polygon = polygonLayers.current.get(geoid);
     const m = map.current;
 
@@ -289,11 +350,14 @@ export default function HeatmapPage() {
 
   return (
     <div className="heatmap-page">
-      <div className="heatmap-top" role="tablist">
+      <nav className="heatmap-top" aria-label="Planner navigation">
+        <Link to="/" className="back">Home</Link>
         <Link to="/dashboard" className="back">
           ← Dashboard
         </Link>
 
+      </nav>
+      <div className="heatmap-top" role="tablist" aria-label="Heatmap layers">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -311,6 +375,23 @@ export default function HeatmapPage() {
         ))}
       </div>
 
+      <section className="radius-controls" aria-label="Find nearby areas">
+        <h2>Find areas near you</h2>
+        <div className="radius-inputs">
+          <button type="button" disabled={locating} onClick={useMyLocation}>{locating ? 'Finding location...' : 'Use my location'}</button>
+          <button type="button" aria-pressed={picking} onClick={() => { ++locationRequest.current; setLocating(false); pickingRef.current = !pickingRef.current; setPicking(pickingRef.current); setLocationMessage(pickingRef.current ? 'Click a spot on the map to search around it.' : 'Map selection cancelled.'); }}>Choose a spot on the map</button>
+          <label>Distance<select value={radius} onChange={e => { setRadius(Number(e.target.value)); setRadiusApplied(false); }}>
+            {[5,10,25,50,100,250,500].map(km => <option key={km} value={km}>{km} km</option>)}
+          </select></label>
+          <button type="button" disabled={!center} onClick={() => { setRadiusApplied(true); setLocationMessage(`Showing areas within ${radius} km of your selected spot.`); }}>Apply distance</button>
+          <label><input type="checkbox" checked={incomeOnly} onChange={e => setIncomeOnly(e.target.checked)} /> Only areas with the highest income barriers</label>
+          <button type="button" onClick={() => { ++locationRequest.current; setLocating(false); setCenter(null); setRadiusApplied(false); setIncomeOnly(false); pickingRef.current = false; setPicking(false); setLocationMessage('Showing all Texas areas.'); if (data && map.current) map.current.fitBounds(L.geoJSON(data).getBounds()); }}>Show all Texas</button>
+        </div>
+        <p role="status">{locationMessage}</p>
+        <p>{loading ? 'Loading areas...' : `${rows.length.toLocaleString()} areas shown${center && radiusApplied ? ` within ${radius} km` : ' across Texas'}.`} {center && !radiusApplied ? 'Spot selected. Choose a distance, then click Apply distance to show the ring and nearby areas.' : !center ? 'Choose a location to filter by distance.' : ''}</p>
+        <p>Distance is measured straight to each area's approximate center, not along roads. Data covers Texas only. The income filter shows the highest quarter of the model's income-barrier scores; it is not a poverty percentage.</p>
+      </section>
+
       {error && (
         <div className="heatmap-error">
           Couldn't load the ML heatmap: {error}
@@ -327,7 +408,7 @@ export default function HeatmapPage() {
           {loading && <p>Loading ML predictions...</p>}
 
           {!loading && !error && rows.length === 0 && (
-            <p>No census tract predictions available.</p>
+            <p>No matching areas here. Try a larger distance, turn off the income filter, or choose a location in Texas.</p>
           )}
 
           {rows.slice(0, 3).map((p, i) => {
@@ -346,6 +427,7 @@ export default function HeatmapPage() {
 
                 <span>
                   Score {score.toFixed(1)} / 100
+                  {center && radiusApplied && centers.get(p.GEOID) && ` · ${distanceKm(center, centers.get(p.GEOID)!).toFixed(1)} km away`}
                 </span>
 
                 <div className="bar">
@@ -383,7 +465,7 @@ export default function HeatmapPage() {
         </aside>
       </div>
 
-      <WhatIfSimulator />
+      <WhatIfSimulator key={simulationArea} areas={rows} selectedId={simulationArea} onSelect={focusOnTract} />
     </div>
   );
 }
