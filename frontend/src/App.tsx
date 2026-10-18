@@ -1,5 +1,5 @@
-
 import { useMemo, useState } from "react";
+
 import {
   LayoutDashboard,
   MapPinned,
@@ -10,10 +10,6 @@ import {
   Package,
   Users,
   Heart,
-  TrendingUp,
-  TrendingDown,
-  ChevronDown,
-  ChevronRight,
   Plus,
   Minus,
   Send,
@@ -22,9 +18,10 @@ import {
   Sparkles,
   HelpCircle,
   ArrowRight,
-  RotateCcw,
+  X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import "./dashboard.css";
 
 type InventoryKey = "kits" | "produce" | "canned" | "dairy" | "hygiene";
 
@@ -40,34 +37,23 @@ type Contribution = {
   date: string;
   amount: number;
   item: string;
+  impactLabel: string;
+  before: number;
+  after: number;
+  result: string;
 };
 
 const areas: Area[] = [
-  {
-    name: "South Dallas",
-    priority: 0.42,
-    reason: "High estimated need",
-    color: "#60645A",
-  },
-  {
-    name: "West Oak Cliff",
-    priority: 0.33,
-    reason: "Limited grocery access",
-    color: "#A1B58C",
-  },
-  {
-    name: "East Plano",
-    priority: 0.25,
-    reason: "Transportation barriers",
-    color: "#C3B8A1",
-  },
+  { name: "South Dallas", priority: 0.42, reason: "High estimated need", color: "#4a4b40" },
+  { name: "West Oak Cliff", priority: 0.33, reason: "Limited grocery access", color: "#8db05e" },
+  { name: "East Plano", priority: 0.25, reason: "Transportation barriers", color: "#b7ab8e" },
 ];
 
 const contributions: Contribution[] = [
-  { name: "South Dallas Community Pantry", date: "Oct 16", amount: 400, item: "Meal kits" },
-  { name: "West Oak Cliff Food Hub", date: "Oct 14", amount: 320, item: "Fresh produce" },
-  { name: "East Plano Food Pantry", date: "Oct 11", amount: 280, item: "Canned goods" },
-  { name: "Linden Park Mutual Aid", date: "Oct 08", amount: 360, item: "Meal kits" },
+  { name: "South Dallas Community Pantry", date: "Oct 16", amount: 400, item: "Meal kits", impactLabel: "Estimated Unmet Demand", before: 100, after: 82, result: "18% lower" },
+  { name: "West Oak Cliff Food Hub", date: "Oct 14", amount: 320, item: "Fresh produce", impactLabel: "Food Access Coverage", before: 56, after: 78, result: "+22 points" },
+  { name: "East Plano Food Pantry", date: "Oct 11", amount: 280, item: "Canned goods", impactLabel: "Distribution Coverage", before: 40, after: 68, result: "+28 points" },
+  { name: "Linden Park Mutual Aid", date: "Oct 08", amount: 360, item: "Meal kits", impactLabel: "Food Access Coverage", before: 48, after: 66, result: "+18 points" },
 ];
 
 const initialInventory: Record<InventoryKey, number> = {
@@ -78,16 +64,11 @@ const initialInventory: Record<InventoryKey, number> = {
   hygiene: 150,
 };
 
-const inventoryFields: {
-  key: InventoryKey;
-  label: string;
-  unit: string;
-}[] = [
+const inventoryFields: { key: InventoryKey; label: string; unit: string }[] = [
   { key: "kits", label: "Meal Kits", unit: "kits" },
   { key: "produce", label: "Fresh Produce", unit: "lbs" },
   { key: "canned", label: "Canned Goods", unit: "items" },
   { key: "dairy", label: "Dairy Items", unit: "items" },
-  { key: "hygiene", label: "Hygiene Kits", unit: "kits" },
 ];
 
 const questions = [
@@ -126,19 +107,18 @@ function Panel({
 function App() {
   const [draftInventory, setDraftInventory] =
     useState<Record<InventoryKey, number>>(initialInventory);
-
   const [inventory, setInventory] =
     useState<Record<InventoryKey, number>>(initialInventory);
 
   const [selectedQuestion, setSelectedQuestion] = useState("");
   const [message, setMessage] = useState("");
   const [answer, setAnswer] = useState("");
-  const [showGuide, setShowGuide] = useState(true);
+  const [chatOpen, setChatOpen] = useState(false);
   const [notice, setNotice] = useState("");
 
   // Demo allocation: percentages are illustrative, not AI results.
-  // The largest-remainder method ensures integer allocations
-  // add up to the exact number of available meal kits.
+  // The largest-remainder method makes integer allocations add up
+  // to the exact number of available meal kits.
   const allocations = useMemo(() => {
     const total = inventory.kits;
     const raw = areas.map((area) => total * area.priority);
@@ -155,21 +135,11 @@ function App() {
       remainder -= 1;
     }
 
-    return areas.map((area, i) => ({
-      ...area,
-      kits: base[i],
-    }));
+    return areas.map((area, i) => ({ ...area, kits: base[i] }));
   }, [inventory.kits]);
 
-  const allocatedTotal = allocations.reduce(
-    (sum, area) => sum + area.kits,
-    0
-  );
-
-  const maxAllocation = Math.max(
-    1,
-    ...allocations.map((area) => area.kits)
-  );
+  const allocatedTotal = allocations.reduce((sum, area) => sum + area.kits, 0);
+  const maxAllocation = Math.max(1, ...allocations.map((area) => area.kits));
 
   function changeInventory(key: InventoryKey, amount: number) {
     setDraftInventory((previous) => ({
@@ -224,7 +194,6 @@ function App() {
   return (
     <div className="foodfit-app">
       <div className="app-frame">
-
         {/* TOP NAVIGATION */}
         <header className="top-navigation">
           <div className="brand-small">
@@ -240,9 +209,7 @@ function App() {
                 className={`nav-tab ${active ? "active" : ""}`}
                 aria-current={active ? "page" : undefined}
                 onClick={() => {
-                  if (!active) {
-                    setNotice(`${label} page is not built yet.`);
-                  }
+                  if (!active) setNotice(`${label} page is not built yet.`);
                 }}
               >
                 <Icon size={16} />
@@ -273,7 +240,6 @@ function App() {
             BRIGHTER TOMORROWS
           </div>
 
-          {/* Optional future background pixel illustration */}
           <div className="banner-art-slot">
             <span>YOUR PIXEL ART HERE</span>
           </div>
@@ -290,299 +256,236 @@ function App() {
 
         {/* SUMMARY METRICS */}
         <section className="metrics-grid">
-          <Metric
-            icon={Package}
-            label="Available Meal Kits"
-            value={inventory.kits.toLocaleString()}
-            detail="Current demo inventory"
-          />
-          <Metric
-            icon={Users}
-            label="Communities Analyzed"
-            value="12"
-            detail="Simulated neighborhoods"
-          />
-          <Metric
-            icon={MapPinned}
-            label="Priority Areas"
-            value="3"
-            detail="Illustrative ranking"
-          />
-          <Metric
-            icon={Heart}
-            label="Donation Allocation"
-            value={allocatedTotal.toLocaleString()}
-            detail="Kits assigned in demo"
-          />
+          <Metric icon={Package} label="Available Meal Kits" value={inventory.kits.toLocaleString()} detail="Current demo inventory" />
+          <Metric icon={Users} label="Communities Analyzed" value="12" detail="Simulated neighborhoods" />
+          <Metric icon={MapPinned} label="Priority Areas" value="3" detail="Illustrative ranking" />
+          <Metric icon={Heart} label="Donation Allocation" value={allocatedTotal.toLocaleString()} detail="Kits assigned in demo" />
         </section>
 
-        {/* TOP ROW */}
-        <div className="dashboard-grid-top">
+        <div className="dashboard-main">
+          <div className="dashboard-left">
+            {/* TOP ROW */}
+            <div className="dashboard-grid-top">
+              {/* INVENTORY INPUT */}
+              <Panel title="01 / Inventory Input" icon={Package}>
+                <p className="panel-description">
+                  Enter the donated food currently available.
+                </p>
 
-          {/* INVENTORY INPUT */}
-          <Panel title="01 / Inventory Input" icon={Package}>
-            <p className="panel-description">
-              Enter the donated food currently available.
-            </p>
+                <div className="inventory-list">
+                  {inventoryFields.map(({ key, label, unit }) => (
+                    <div className="inventory-row" key={key}>
+                      <span className="inventory-label">{label}</span>
 
-            <div className="inventory-list">
-              {inventoryFields.map(({ key, label, unit }) => (
-                <div className="inventory-row" key={key}>
-                  <span className="inventory-label">{label}</span>
+                      <div className="quantity-controls">
+                        <button
+                          onClick={() => changeInventory(key, -1)}
+                          aria-label={`Remove one ${label}`}
+                        >
+                          <Minus size={13} />
+                        </button>
 
-                  <div className="quantity-controls">
-                    <button
-                      onClick={() => changeInventory(key, -1)}
-                      aria-label={`Remove one ${label}`}
-                    >
-                      <Minus size={13} />
-                    </button>
+                        <input
+                          type="number"
+                          min="0"
+                          aria-label={`${label} quantity`}
+                          value={draftInventory[key]}
+                          onChange={(event) => {
+                            const value = Math.max(
+                              0,
+                              Math.floor(Number(event.target.value) || 0)
+                            );
+                            setDraftInventory((previous) => ({
+                              ...previous,
+                              [key]: value,
+                            }));
+                          }}
+                        />
 
-                    <input
-                      type="number"
-                      min="0"
-                      aria-label={`${label} quantity`}
-                      value={draftInventory[key]}
-                      onChange={(event) => {
-                        const value = Math.max(
-                          0,
-                          Math.floor(Number(event.target.value) || 0)
-                        );
-                        setDraftInventory((previous) => ({
-                          ...previous,
-                          [key]: value,
-                        }));
-                      }}
-                    />
+                        <button
+                          onClick={() => changeInventory(key, 1)}
+                          aria-label={`Add one ${label}`}
+                        >
+                          <Plus size={13} />
+                        </button>
+                      </div>
 
-                    <button
-                      onClick={() => changeInventory(key, 1)}
-                      aria-label={`Add one ${label}`}
-                    >
-                      <Plus size={13} />
-                    </button>
-                  </div>
-
-                  <span className="inventory-unit">{unit}</span>
+                      <span className="inventory-unit">{unit}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <button className="primary-button" onClick={updateInventory}>
-              <Package size={16} />
-              UPDATE INVENTORY
-              <ArrowRight size={16} />
-            </button>
+                <button className="primary-button" onClick={updateInventory}>
+                  <Package size={16} />
+                  UPDATE INVENTORY
+                  <ArrowRight size={16} />
+                </button>
 
-            <p className="tiny-note">
-              Meal-kit recommendations update when inventory is saved.
-              Other item types are tracked separately.
-            </p>
-          </Panel>
+                <p className="tiny-note">
+                  Meal-kit recommendations update when inventory is saved.
+                  Other item types are tracked separately.
+                </p>
+              </Panel>
 
-          {/* RECOMMENDED AREAS */}
-          <Panel
-            title="02 / Top 3 Recommended Areas"
-            icon={MapPinned}
-            extra={<span className="heading-tag">DEMO RANKING</span>}
-          >
-            <p className="panel-description">
-              Illustrative allocations for the three highest-priority areas.
-            </p>
-
-            <div className="allocation-chart">
-              <div className="chart-bars">
-                {allocations.map((area, index) => (
-                  <div className="chart-column" key={area.name}>
-                    <div className="chart-value">
-                      {area.kits.toLocaleString()}
-                    </div>
-
-                    <div className="bar-track">
-                      <div
-                        className="chart-bar"
-                        style={{
-                          height: `${(area.kits / maxAllocation) * 100}%`,
-                          backgroundColor: area.color,
-                        }}
-                      />
-                    </div>
-
-                    <div className="chart-location">
-                      {area.name}
-                    </div>
-
-                    <div className="chart-caption">
-                      {area.reason}
-                    </div>
-
-                    <div className="rank-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="allocation-footer">
-              <div>
-                <span className="small-label">TOTAL RECOMMENDED</span>
-                <strong>{allocatedTotal.toLocaleString()} kits</strong>
-              </div>
-              <div>
-                <span className="small-label">ALLOCATION METHOD</span>
-                <strong>Preset demo priorities</strong>
-              </div>
-            </div>
-          </Panel>
-
-          {/* FITBASKET GUIDE */}
-          <Panel
-            title="03 / Your Guide"
-            icon={Heart}
-            extra={
-              <button
-                className="icon-button"
-                onClick={() => setShowGuide(!showGuide)}
-                aria-label="Toggle guide"
+              {/* RECOMMENDED AREAS */}
+              <Panel
+                title="02 / Top 3 Recommended Areas"
+                icon={MapPinned}
+                extra={<span className="heading-tag">DEMO RANKING</span>}
               >
-                {showGuide ? <Minus size={16} /> : <Plus size={16} />}
-              </button>
-            }
-          >
-            {showGuide && (
-              <div className="guide-content">
-                <div className="mascot-row">
-                  {/* Replace this block with your PNG later */}
-                  <div className="mascot-slot">
-                    <span>FitBasket</span>
-                    <small>PNG SPRITE</small>
-                  </div>
+                <p className="panel-description">
+                  Illustrative allocations for the three highest-priority areas.
+                </p>
 
-                  <div className="speech-bubble">
-                    <strong>HI! I'M FITBASKET!</strong>
-                    <p>
-                      I'll help you explore community needs,
-                      manage donations, and understand the results!
-                    </p>
+                <div className="allocation-chart">
+                  <div className="chart-bars">
+                    {allocations.map((area, index) => (
+                      <div className="chart-column" key={area.name}>
+                        <div className="chart-value">{area.kits.toLocaleString()}</div>
+
+                        <div className="bar-track">
+                          <div
+                            className="chart-bar"
+                            style={{
+                              height: `${(area.kits / maxAllocation) * 100}%`,
+                              backgroundColor: area.color,
+                            }}
+                          />
+                        </div>
+
+                        <div className="chart-location">{area.name}</div>
+                        <div className="chart-caption">{area.reason}</div>
+                        <div className="rank-number">
+                          {String(index + 1).padStart(2, "0")}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                <div className="guide-actions">
-                  <button onClick={() =>
-                    document.getElementById("impact-section")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }>
-                    <TrendingUp size={16} />
-                    See community impact
-                    <ChevronRight size={15} />
-                  </button>
-
-                  <button onClick={() => {
-                    setNotice(
-                      "Distribution Planner will be connected in a future phase."
-                    );
-                  }}>
-                    <MapPinned size={16} />
-                    Plan a distribution
-                    <ChevronRight size={15} />
-                  </button>
+                <div className="allocation-footer">
+                  <div>
+                    <span className="small-label">TOTAL RECOMMENDED</span>
+                    <strong>{allocatedTotal.toLocaleString()} kits</strong>
+                  </div>
+                  <div>
+                    <span className="small-label">ALLOCATION METHOD</span>
+                    <strong>Preset demo priorities</strong>
+                  </div>
                 </div>
-              </div>
-            )}
-          </Panel>
+              </Panel>
+              {/* CONTRIBUTIONS + IMPACT */}
+              <Panel title="03 / Recent Contributions" icon={FileText}>
+                <p className="panel-description">
+                  Example distribution records for the demo.
+                </p>
+
+                <div className="contribution-list">
+                  {contributions.map((contribution) => (
+                    <div className="contribution-card" key={contribution.name}>
+                      <div className="contribution-row">
+                        <div className="contribution-symbol">
+                          <Package size={18} />
+                        </div>
+
+                        <div className="contribution-info">
+                          <strong>{contribution.name}</strong>
+                          <span>
+                            {contribution.item} · {contribution.date}
+                          </span>
+                        </div>
+
+                        <div className="contribution-amount">+{contribution.amount}</div>
+                      </div>
+
+                      <div className="contribution-impact">
+                        <div className="impact-data">
+                          <span className="impact-label">{contribution.impactLabel}</span>
+
+                          <div className="impact-bar-row">
+                            <span>BEFORE</span>
+                            <div className="impact-track">
+                              <div className="impact-fill before" style={{ width: `${contribution.before}%` }} />
+                            </div>
+                          </div>
+
+                          <div className="impact-bar-row">
+                            <span>AFTER</span>
+                            <div className="impact-track">
+                              <div className="impact-fill after" style={{ width: `${contribution.after}%` }} />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="impact-result">{contribution.result}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  className="text-action"
+                  onClick={() =>
+                    setNotice("Contribution history is currently sample data.")
+                  }
+                >
+                  VIEW ALL CONTRIBUTIONS <ArrowRight size={15} />
+                </button>
+
+                <p className="tiny-note">
+                  These examples are not verified outcomes. Actual impact
+                  requires distribution and accessibility data.
+                </p>
+              </Panel>
+            </div>
+          </div>
         </div>
 
-        {/* BOTTOM ROW */}
-        <div className="dashboard-grid-bottom">
+        {/* FOOTER */}
+        <footer className="page-footer">
+          <span>HARVESTGROWTH · IBM Z DATATHON 2026</span>
+          <span>
+            <HelpCircle size={13} />
+            SIMULATED DATA · PROTOTYPE
+          </span>
+        </footer>
+      </div>
 
-          {/* CONTRIBUTIONS */}
-          <Panel title="04 / Recent Contributions" icon={FileText}>
-            <p className="panel-description">
-              Example distribution records for the demo.
-            </p>
-
-            <div className="contribution-list">
-              {contributions.map((contribution) => (
-                <div className="contribution-row" key={contribution.name}>
-                  <div className="contribution-symbol">
-                    <Package size={18} />
-                  </div>
-
-                  <div className="contribution-info">
-                    <strong>{contribution.name}</strong>
-                    <span>{contribution.item} · {contribution.date}</span>
-                  </div>
-
-                  <div className="contribution-amount">
-                    +{contribution.amount}
-                  </div>
-                </div>
-              ))}
+      {/* FLOATING MASCOT CHAT */}
+      <div className="chat-widget">
+        {chatOpen && (
+          <div className="chat-window" role="dialog" aria-label="Ask FoodFit">
+            <div className="chat-window-header">
+              <div className="chat-window-title">
+                <Mascot size={28} />
+                <span>Ask FoodFit</span>
+              </div>
+              <button
+                className="icon-button"
+                onClick={() => setChatOpen(false)}
+                aria-label="Close chat"
+              >
+                <X size={16} />
+              </button>
             </div>
 
-            <button
-              className="text-action"
-              onClick={() => setNotice(
-                "Contribution history is currently sample data."
-              )}
-            >
-              VIEW ALL CONTRIBUTIONS <ArrowRight size={15} />
-            </button>
-          </Panel>
+            <div className="chat-window-body">
+              <div className="speech-bubble">
+                <strong>HI! I'M FITBASKET!</strong>
+                <p>
+                  I'll help you explore community needs, manage donations,
+                  and understand the results!
+                </p>
+              </div>
 
-          {/* IMPACT */}
-          <div id="impact-section">
-            <Panel title="05 / Contribution Impact" icon={BarChart3}>
               <p className="panel-description">
-                Illustrative before-and-after community outcomes.
-              </p>
-
-              <ImpactRow
-                icon={TrendingDown}
-                title="Estimated Unmet Demand"
-                before={100}
-                after={82}
-                result="18% lower"
-              />
-
-              <ImpactRow
-                icon={Leaf}
-                title="Food Access Coverage"
-                before={56}
-                after={78}
-                result="+22 points"
-              />
-
-              <ImpactRow
-                icon={Users}
-                title="Distribution Coverage"
-                before={40}
-                after={68}
-                result="+28 points"
-              />
-
-              <p className="tiny-note">
-                These examples are not verified outcomes.
-                Actual impact requires distribution and accessibility data.
-              </p>
-            </Panel>
-          </div>
-
-          {/* CHATBOT */}
-          <Panel title="06 / Ask FoodFit" icon={MessageSquare}>
-            <div className="chat-container">
-              <p className="panel-description">
-                Ask questions about community priorities,
-                inventory, and distribution planning.
+                Ask questions about community priorities, inventory, and
+                distribution planning.
               </p>
 
               <div className="suggested-questions">
                 {questions.map((question) => (
-                  <button
-                    key={question}
-                    onClick={() => askFoodFit(question)}
-                  >
+                  <button key={question} onClick={() => askFoodFit(question)}>
                     <Sparkles size={14} />
                     {question}
                   </button>
@@ -591,52 +494,86 @@ function App() {
 
               {answer && (
                 <div className="chat-answer" aria-live="polite">
-                  <span className="small-label">
-                    FOODFIT RESPONSE
-                  </span>
+                  <span className="small-label">FOODFIT RESPONSE</span>
                   <strong>{selectedQuestion}</strong>
                   <p>{answer}</p>
                 </div>
               )}
-
-              <form
-                className="chat-input"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  askFoodFit(message);
-                }}
-              >
-                <input
-                  value={message}
-                  onChange={(event) =>
-                    setMessage(event.target.value)
-                  }
-                  placeholder="Ask FoodFit a question..."
-                  aria-label="Ask FoodFit a question"
-                />
-
-                <button type="submit" aria-label="Send message">
-                  <Send size={17} />
-                </button>
-              </form>
-
-              <p className="tiny-note">
-                Demo assistant · Not yet connected to an AI model.
-              </p>
             </div>
-          </Panel>
-        </div>
 
-        {/* FOOTER */}
-        <footer className="page-footer">
-          <span>FOODFIT · IBM Z DATATHON 2026</span>
-          <span>
-            <HelpCircle size={13} />
-            SIMULATED DATA · PROTOTYPE
-          </span>
-        </footer>
+            <form
+              className="chat-input"
+              onSubmit={(event) => {
+                event.preventDefault();
+                askFoodFit(message);
+              }}
+            >
+              <input
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                placeholder="Ask FoodFit a question..."
+                aria-label="Ask FoodFit a question"
+              />
+              <button type="submit" aria-label="Send message">
+                <Send size={17} />
+              </button>
+            </form>
+
+            <p className="tiny-note">
+              Demo assistant · Not yet connected to an AI model.
+            </p>
+          </div>
+        )}
+
+        <button
+          className="mascot-fab"
+          onClick={() => setChatOpen(!chatOpen)}
+          aria-label={chatOpen ? "Close FitBasket chat" : "Open FitBasket chat"}
+          aria-expanded={chatOpen}
+        >
+          {/* swap <Mascot /> for your drawn PNG later */}
+          <Mascot size={64} />
+        </button>
       </div>
     </div>
+  );
+}
+
+const MASCOT_COLORS: Record<string, string> = {
+  g: "#6e9a4e", G: "#3e6330", o: "#e08a3c", r: "#c8553d",
+  b: "#c68b4a", B: "#7a4f24", k: "#2f3a2a", p: "#e8a48a",
+};
+
+const MASCOT_ROWS = [
+  "................",
+  ".....ggg........",
+  "...gggGgggoo....",
+  "..ggGggggorrgg..",
+  "..gggggrrrgggg..",
+  "...ggggrrgggg...",
+  ".BBBBBBBBBBBBBB.",
+  ".bBbBbBbBbBbBbb.",
+  ".bbbbbbbbbbbbbb.",
+  ".bbkkbbbbbbkkbb.",
+  ".bbkkbbbbbbkkbb.",
+  ".bpbbbbbbbbbbpb.",
+  ".bbbbkbbbbkbbbb.",
+  ".bbbbbkkkkbbbbb.",
+  ".BBbbbbbbbbbbBB.",
+  "..BBBBBBBBBBBB..",
+];
+
+function Mascot({ size = 64 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" shapeRendering="crispEdges" aria-hidden="true">
+      {MASCOT_ROWS.flatMap((row, y) =>
+        row.split("").map((c, x) =>
+          MASCOT_COLORS[c] ? (
+            <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill={MASCOT_COLORS[c]} />
+          ) : null
+        )
+      )}
+    </svg>
   );
 }
 
@@ -662,56 +599,6 @@ function Metric({
         <span className="metric-detail">{detail}</span>
       </div>
     </article>
-  );
-}
-
-function ImpactRow({
-  icon: Icon,
-  title,
-  before,
-  after,
-  result,
-}: {
-  icon: LucideIcon;
-  title: string;
-  before: number;
-  after: number;
-  result: string;
-}) {
-  return (
-    <div className="impact-row">
-      <div className="impact-icon">
-        <Icon size={19} />
-      </div>
-
-      <div className="impact-data">
-        <strong>{title}</strong>
-
-        <div className="impact-bar-row">
-          <span>BEFORE</span>
-          <div className="impact-track">
-            <div
-              className="impact-fill before"
-              style={{ width: `${before}%` }}
-            />
-          </div>
-        </div>
-
-        <div className="impact-bar-row">
-          <span>AFTER</span>
-          <div className="impact-track">
-            <div
-              className="impact-fill after"
-              style={{ width: `${after}%` }}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="impact-result">
-        {result}
-      </div>
-    </div>
   );
 }
 

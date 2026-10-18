@@ -1,0 +1,59 @@
+.page {
+  --cream: #ece7d3;
+  --ink: #2a2b25;
+  --forest: #3e5c34;
+  --leaf: #8bae5f;
+  --tan: #b9af93;
+
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--cream);
+  display: grid;
+}
+
+.frame {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 48px;
+  padding: clamp(32px, 6vw, 96px);
+  border: 3px solid var(--ink);
+  outline: 2px dotted var(--tan);
+  outline-offset: 8px;
+  margin: 10px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  line-height: 0.95;
+  font-family: "Silkscreen", monospace;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-shadow: 5px 5px 0 var(--leaf);
+}
+
+.title span {
+  display: block;
+}
+
+.mascot {
+  justify-self: center;
+  width: min(100%, 420px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--leaf);
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--forest);
+}
+
+@media (max-width: 720px) {
+  .frame {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.title { font-family: "Chakra Petch", sans-serif; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.pixel { font-family: "Pixelify Sans Variable", monospace; font-size: 1.12em; }
