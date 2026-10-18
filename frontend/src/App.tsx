@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { UserButton } from "@clerk/react";
 import foodfitDrawing from "../assets/Untitled 10.png";
 
 import {
@@ -245,14 +247,10 @@ function App() {
     setMessage("");
   }
 
-  const navigation = [
-    { label: "Dashboard", icon: LayoutDashboard, active: true },
-    { label: "Planner", icon: MapPinned },
-    { label: "Pantries", icon: Store },
-    { label: "AI Insights", icon: BarChart3 },
-    { label: "Reports", icon: FileText },
-    { label: "Settings", icon: Settings },
-  ];
+const navigation = [
+  { label: "Dashboard", icon: LayoutDashboard, active: true },
+  { label: "Heatmap", icon: MapPinned },
+];
 
   return (
     <div className="foodfit-app">
@@ -264,28 +262,30 @@ function App() {
             <span>HARVEST GROWTH</span>
           </div>
 
-          <nav className="navigation-links" aria-label="Main navigation">
-            {navigation.map(({ label, icon: Icon, active }) => (
-              <button
-                key={label}
-                type="button"
-                className={`nav-tab ${active ? "active" : ""}`}
-                aria-current={active ? "page" : undefined}
-                onClick={() => {
-                  if (!active) setNotice(`${label} page is not built yet.`);
-                }}
-              >
-                <Icon size={16} />
-                <span>{label}</span>
-              </button>
-            ))}
-          </nav>
 
-          <div className="nav-slogan">
-            GOOD FOOD
-            <br />
-            STRONGER COMMUNITIES
-          </div>
+<nav className="navigation-links" aria-label="Main navigation">
+  {navigation.map(({ label, icon: Icon, active }) => (
+    <Link
+      key={label}
+      to={active ? "/dashboard" : "/heatmap"}
+      className={`nav-tab ${active ? "active" : ""}`}
+      aria-current={active ? "page" : undefined}
+    >
+      <Icon size={16} />
+      <span>{label}</span>
+    </Link>
+  ))}
+
+  <div className="nav-tab profile-nav-tab">
+    <UserButton />
+    <span>PROFILE</span>
+  </div>
+</nav>
+
+
+<div className="nav-slogan">
+  GOOD FOOD · STRONGER COMMUNITIES
+</div>
         </header>
 
         {/* TITLE BANNER */}
@@ -303,9 +303,6 @@ function App() {
             BRIGHTER TOMORROWS
           </div>
 
-          <div className="banner-art-slot">
-            <span>YOUR PIXEL ART HERE</span>
-          </div>
         </div>
 
         {notice && (
@@ -321,7 +318,7 @@ function App() {
         <section className="metrics-grid">
           <Metric icon={Package} label="Available Meal Kits" value={inventory.kits.toLocaleString()} detail="Entered inventory" />
           <Metric icon={Users} label="Communities Analyzed" value={dataLoading ? "..." : communities.length.toLocaleString()} detail="Texas census tracts" />
-          <Metric icon={MapPinned} label="Priority Areas" value={allocations.length.toString()} detail="Model-assisted ranking" />
+          <Metric icon={MapPinned} label="Priority Areas" value={allocations.length.toString()} detail=" " />
           <Metric icon={Heart} label="Donation Allocation" value={allocatedTotal.toLocaleString()} detail="Proposed kits, not deliveries" />
         </section>
 
@@ -394,7 +391,7 @@ function App() {
               <Panel
                 title="02 / Top 3 Recommended Areas"
                 icon={MapPinned}
-                extra={<span className="heading-tag">MODEL-ASSISTED</span>}
+                
               >
                 <p className="panel-description">
                   Top three Texas census tracts ranked by historical estimated barriers.
@@ -531,23 +528,12 @@ function App() {
                   VIEW ALL CONTRIBUTIONS <ArrowRight size={15} />
                 </button>
 
-                <p className="tiny-note">
-                  These examples are not verified outcomes. Actual impact
-                  requires distribution and accessibility data.
-                </p>
               </Panel>
             </div>
           </div>
         </div>
 
-        {/* FOOTER */}
-        <footer className="page-footer">
-          <span>HARVESTGROWTH · IBM Z DATATHON 2026</span>
-          <span>
-            <HelpCircle size={13} />
-            HISTORICAL ML ESTIMATES · PROTOTYPE
-          </span>
-        </footer>
+    
       </div>
 
       {/* FLOATING MASCOT CHAT */}

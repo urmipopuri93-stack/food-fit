@@ -496,3 +496,210 @@
   border: none;
   cursor: pointer;
 }
+
+
+/* Profile navigation box */
+.profile-nav-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: default;
+}
+
+.profile-nav-tab span {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.profile-nav-tab .cl-userButtonTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Keep navigation boxes at their original size */
+.navigation-links {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  flex: 1;
+}
+
+.navigation-links .nav-tab {
+  flex: 0 0 150px;
+  width: 150px;
+  min-width: 0;
+}
+
+/* Profile box */
+.profile-nav-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+
+
+/* Keep original button sizes */
+.navigation-links .nav-tab {
+  flex: 0 0 150px;
+  width: 150px;
+  min-width: 0;
+}
+
+/* Profile box */
+.profile-nav-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.nav-slogan {
+  position: relative;
+  left: -100px;
+}
+
+
+.nav-slogan {
+  white-space: nowrap;
+  position: relative;
+  left: -100px;
+}
+
+
+
+.rank-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 38px;
+  padding: 0;
+  margin: 0 auto;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+/* Allow chart tooltips to extend outside the graph */
+.retro-panel,
+.panel-content,
+.allocation-chart,
+.chart-bars,
+.chart-column,
+.bar-track {
+  overflow: visible;
+}
+
+/* Make each bar the positioning reference */
+.bar-track {
+  position: relative;
+}
+
+/* Center tooltip above hovered bar */
+.bar-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 230px;
+  max-width: 90vw;
+  box-sizing: border-box;
+  padding: 14px;
+
+  background: #354233;
+  color: #fff;
+  border: 2px solid #c9bd98;
+  box-shadow: 6px 6px 0 #c9bd98;
+
+  z-index: 1000;
+  pointer-events: none;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Show tooltip on hover or keyboard focus */
+.interactive-bar:hover .bar-tooltip,
+.interactive-bar:focus-visible .bar-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Keep the hovered bar and tooltip above neighboring bars */
+.chart-column:hover,
+.chart-column:focus-within {
+  position: relative;
+  z-index: 20;
+}
+
+
+.interactive-bar {
+  position: relative;
+  overflow: visible;
+}
+
+
+/* Fix chart tooltip positioning and clipping */
+
+/* Restore the bar's original positioning */
+.foodfit-app .chart-bar.interactive-bar {
+  position: absolute;
+  bottom: 0;
+  left: 19%;
+  width: 62%;
+  overflow: visible;
+}
+
+/* Keep hovered chart elements above neighboring content */
+.foodfit-app .chart-column:hover,
+.foodfit-app .chart-column:focus-within {
+  position: relative;
+  z-index: 100;
+}
+
+/* Position tooltip beside the bar, not above it */
+.foodfit-app .bar-tooltip {
+  position: absolute;
+  top: 8px;
+  bottom: auto;
+  left: calc(100% + 12px);
+  transform: none;
+
+  width: 220px;
+  max-width: 80vw;
+  padding: 12px;
+
+  background: #354233;
+  color: #ffffff;
+  border: 2px solid #c9bd98;
+  box-shadow: 4px 4px 0 #c9bd98;
+
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Third bar: show tooltip to the left */
+.foodfit-app .chart-column:last-child .bar-tooltip {
+  left: auto;
+  right: calc(100% + 12px);
+}
+
+/* Show tooltip on hover */
+.foodfit-app .interactive-bar:hover .bar-tooltip,
+.foodfit-app .interactive-bar:focus-visible .bar-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+
