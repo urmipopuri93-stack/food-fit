@@ -1,6 +1,5 @@
 import styles from "./Landing.module.css";
-import mascot from "./assets/mascot.PNG";
-
+import mascot from "./assets/mascot.png";
 import { Link } from "react-router-dom";
 
 export default function Landing({ startTo = "/sign-in", loading = false }: { startTo?: string; loading?: boolean }) {
