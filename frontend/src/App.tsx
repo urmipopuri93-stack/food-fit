@@ -260,10 +260,10 @@ function App() {
       <div className="app-frame">
         {/* TOP NAVIGATION */}
         <header className="top-navigation">
-          <div className="brand-small">
+          <Link to="/" className="brand-small">
             <Leaf size={20} />
             <span>HARVEST GROWTH</span>
-          </div>
+          </Link>
 
           <nav className="navigation-links" aria-label="Main navigation">
             {navigation.map(({ label, icon: Icon, active }) => (
