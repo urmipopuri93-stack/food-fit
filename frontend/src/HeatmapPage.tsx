@@ -107,6 +107,7 @@ export default function HeatmapPage() {
   const [tab, setTab] = useState<TabId>("combined");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [simulationArea, setSimulationArea] = useState("");
 
   const current = TABS.find((t) => t.id === tab)!;
 
@@ -232,6 +233,7 @@ export default function HeatmapPage() {
         }
 
         const score = valueFor(p, tab);
+        featureLayer.on("click", () => setSimulationArea(p.GEOID));
 
         featureLayer.bindPopup(`
           <div style="min-width:180px;line-height:1.6">
@@ -274,6 +276,7 @@ export default function HeatmapPage() {
   }, [data, tab, current.label, current.ramp]);
 
   function focusOnTract(geoid: string) {
+    setSimulationArea(geoid);
     const polygon = polygonLayers.current.get(geoid);
     const m = map.current;
 
@@ -383,7 +386,7 @@ export default function HeatmapPage() {
         </aside>
       </div>
 
-      <WhatIfSimulator />
+      <WhatIfSimulator key={simulationArea} areas={rows} selectedId={simulationArea} onSelect={focusOnTract} />
     </div>
   );
 }
