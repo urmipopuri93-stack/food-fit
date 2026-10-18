@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import foodfitDrawing from "../assets/Untitled 10.png";
 
 import {
   LayoutDashboard,
@@ -13,7 +14,6 @@ import {
   Plus,
   Minus,
   Send,
-  MessageSquare,
   Leaf,
   Sparkles,
   HelpCircle,
@@ -25,12 +25,66 @@ import "./dashboard.css";
 
 type InventoryKey = "kits" | "produce" | "canned" | "dairy" | "hygiene";
 
-type Area = {
+type Community = {
+  GEOID: string;
+  County: string;
+  location: string;
+  TotalPop: number;
+  income_score: number;
+  transportation_score: number;
+  grocery_score: number;
+  overall_need_score: number;
+  grocery_observed: boolean;
+};
+
+type AllocatedArea = Community & {
   name: string;
-  priority: number;
   reason: string;
   color: string;
+  kits: number;
 };
+
+// Prototype allocation: rank tracts by estimated barriers, then split kits
+// by need score * population. Not a verified measure of food demand.
+function rankDonationLocations(communities: Community[], kits: number): AllocatedArea[] {
+  const available = Math.max(0, Math.floor(Number(kits) || 0));
+  const top = communities
+    .filter((c) => Number.isFinite(c.overall_need_score) &&
+      Number.isFinite(c.TotalPop) && c.TotalPop > 0)
+    .sort((a, b) => b.overall_need_score - a.overall_need_score)
+    .slice(0, 3);
+
+  if (top.length === 0) return [];
+  const weights = top.map((c) => Math.max(0, c.overall_need_score) * c.TotalPop);
+  const sum = weights.reduce((a, b) => a + b, 0);
+  const fractional = weights.map((w) => sum > 0 ? (available * w) / sum : available / top.length);
+  const assigned = fractional.map(Math.floor);
+  let leftover = available - assigned.reduce((a, b) => a + b, 0);
+  const order = fractional.map((n, i) => ({ i, remainder: n - assigned[i] }))
+    .sort((a, b) => b.remainder - a.remainder);
+  for (const { i } of order) {
+    if (leftover <= 0) break;
+    assigned[i]++;
+    leftover--;
+  }
+
+  const colors = ["#4a4b40", "#8db05e", "#b7ab8e"];
+  return top.map((c, i) => {
+    const factors = [
+      { label: "Income barriers", value: c.income_score },
+      { label: "Transportation barriers", value: c.transportation_score },
+      { label: "Grocery-access barriers", value: c.grocery_score },
+    ];
+    const strongest = factors.sort((a, b) => b.value - a.value)[0];
+    return {
+      ...c,
+      name: c.location || `${c.County} County · Tract ${c.GEOID.slice(-6)}`,
+      kits: assigned[i],
+      reason: strongest.label,
+      color: colors[i],
+    };
+  });
+}
 
 type Contribution = {
   name: string;
@@ -42,12 +96,6 @@ type Contribution = {
   after: number;
   result: string;
 };
-
-const areas: Area[] = [
-  { name: "South Dallas", priority: 0.42, reason: "High estimated need", color: "#4a4b40" },
-  { name: "West Oak Cliff", priority: 0.33, reason: "Limited grocery access", color: "#8db05e" },
-  { name: "East Plano", priority: 0.25, reason: "Transportation barriers", color: "#b7ab8e" },
-];
 
 const contributions: Contribution[] = [
   { name: "South Dallas Community Pantry", date: "Oct 16", amount: 400, item: "Meal kits", impactLabel: "Estimated Unmet Demand", before: 100, after: 82, result: "18% lower" },
@@ -72,7 +120,7 @@ const inventoryFields: { key: InventoryKey; label: string; unit: string }[] = [
 ];
 
 const questions = [
-  "Why is South Dallas prioritized?",
+  "Why is the top area prioritized?",
   "What if we had 300 more kits?",
   "How did recent contributions help?",
 ];
@@ -110,33 +158,41 @@ function App() {
   const [inventory, setInventory] =
     useState<Record<InventoryKey, number>>(initialInventory);
 
+  const [communities, setCommunities] = useState<Community[]>([]);
+  const [dataLoading, setDataLoading] = useState(true);
+  const [dataError, setDataError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    async function load() {
+      try {
+        const res = await fetch("/data/texas_dashboard.json", { signal: controller.signal });
+        if (!res.ok) throw new Error("Could not load texas_dashboard.json");
+        const json: unknown = await res.json();
+        if (!Array.isArray(json)) throw new Error("Dashboard data is not an array");
+        setCommunities(json as Community[]);
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          setDataError(error instanceof Error ? error.message : "Data loading failed");
+        }
+      } finally {
+        if (!controller.signal.aborted) setDataLoading(false);
+      }
+    }
+    void load();
+    return () => controller.abort();
+  }, []);
+
   const [selectedQuestion, setSelectedQuestion] = useState("");
   const [message, setMessage] = useState("");
   const [answer, setAnswer] = useState("");
   const [chatOpen, setChatOpen] = useState(false);
   const [notice, setNotice] = useState("");
 
-  // Demo allocation: percentages are illustrative, not AI results.
-  // The largest-remainder method makes integer allocations add up
-  // to the exact number of available meal kits.
-  const allocations = useMemo(() => {
-    const total = inventory.kits;
-    const raw = areas.map((area) => total * area.priority);
-    const base = raw.map(Math.floor);
-    let remainder = total - base.reduce((sum, n) => sum + n, 0);
-
-    const order = raw
-      .map((value, i) => ({ i, fraction: value - base[i] }))
-      .sort((a, b) => b.fraction - a.fraction);
-
-    for (const entry of order) {
-      if (remainder <= 0) break;
-      base[entry.i] += 1;
-      remainder -= 1;
-    }
-
-    return areas.map((area, i) => ({ ...area, kits: base[i] }));
-  }, [inventory.kits]);
+  const allocations = useMemo(
+    () => rankDonationLocations(communities, inventory.kits),
+    [communities, inventory.kits]
+  );
 
   const allocatedTotal = allocations.reduce((sum, area) => sum + area.kits, 0);
   const maxAllocation = Math.max(1, ...allocations.map((area) => area.kits));
@@ -150,7 +206,11 @@ function App() {
 
   function updateInventory() {
     setInventory({ ...draftInventory });
-    setNotice("Inventory updated. Demo allocations recalculated.");
+    setNotice(dataLoading
+      ? "Inventory saved. Recommendations are loading."
+      : dataError || communities.length === 0
+        ? "Inventory saved, but recommendation data is unavailable."
+        : "Inventory updated. Model-assisted recommendations recalculated.");
   }
 
   function askFoodFit(question: string) {
@@ -160,7 +220,9 @@ function App() {
 
     if (q.includes("why") || q.includes("priorit")) {
       setAnswer(
-        "In this demo, South Dallas has the highest preset priority. The production system will consider income, food insecurity, grocery access, and transportation barriers."
+        allocations.length
+          ? `${allocations[0].name} ranks highest based on the weighted historical income, transportation, and grocery-access barrier scores. This does not confirm current food demand.`
+          : "Recommendation data is not available yet."
       );
     } else if (q.includes("300") || q.includes("more kits")) {
       setAnswer(
@@ -256,10 +318,10 @@ function App() {
 
         {/* SUMMARY METRICS */}
         <section className="metrics-grid">
-          <Metric icon={Package} label="Available Meal Kits" value={inventory.kits.toLocaleString()} detail="Current demo inventory" />
-          <Metric icon={Users} label="Communities Analyzed" value="12" detail="Simulated neighborhoods" />
-          <Metric icon={MapPinned} label="Priority Areas" value="3" detail="Illustrative ranking" />
-          <Metric icon={Heart} label="Donation Allocation" value={allocatedTotal.toLocaleString()} detail="Kits assigned in demo" />
+          <Metric icon={Package} label="Available Meal Kits" value={inventory.kits.toLocaleString()} detail="Entered inventory" />
+          <Metric icon={Users} label="Communities Analyzed" value={dataLoading ? "..." : communities.length.toLocaleString()} detail="Texas census tracts" />
+          <Metric icon={MapPinned} label="Priority Areas" value={allocations.length.toString()} detail="Model-assisted ranking" />
+          <Metric icon={Heart} label="Donation Allocation" value={allocatedTotal.toLocaleString()} detail="Proposed kits, not deliveries" />
         </section>
 
         <div className="dashboard-main">
@@ -323,7 +385,7 @@ function App() {
 
                 <p className="tiny-note">
                   Meal-kit recommendations update when inventory is saved.
-                  Other item types are tracked separately.
+                  Other item types are tracked separately and are not allocated yet.
                 </p>
               </Panel>
 
@@ -331,11 +393,17 @@ function App() {
               <Panel
                 title="02 / Top 3 Recommended Areas"
                 icon={MapPinned}
-                extra={<span className="heading-tag">DEMO RANKING</span>}
+                extra={<span className="heading-tag">MODEL-ASSISTED</span>}
               >
                 <p className="panel-description">
-                  Illustrative allocations for the three highest-priority areas.
+                  Top three Texas census tracts ranked by historical estimated barriers.
+                  Proposed meal-kit allocations use population as a size proxy.
                 </p>
+                {dataLoading && <p className="tiny-note">Loading predictions...</p>}
+                {dataError && <p className="tiny-note" role="alert">{dataError}. Run export_dashboard.py to generate the data file.</p>}
+                {!dataLoading && !dataError && allocations.length === 0 && (
+                  <p className="tiny-note">No eligible tracts found.</p>
+                )}
 
                 <div className="allocation-chart">
                   <div className="chart-bars">
@@ -370,7 +438,7 @@ function App() {
                   </div>
                   <div>
                     <span className="small-label">ALLOCATION METHOD</span>
-                    <strong>Preset demo priorities</strong>
+                    <strong>Need score × population</strong>
                   </div>
                 </div>
               </Panel>
@@ -446,7 +514,7 @@ function App() {
           <span>HARVESTGROWTH · IBM Z DATATHON 2026</span>
           <span>
             <HelpCircle size={13} />
-            SIMULATED DATA · PROTOTYPE
+            HISTORICAL ML ESTIMATES · PROTOTYPE
           </span>
         </footer>
       </div>
@@ -457,7 +525,7 @@ function App() {
           <div className="chat-window" role="dialog" aria-label="Ask FoodFit">
             <div className="chat-window-header">
               <div className="chat-window-title">
-                <Mascot size={28} />
+                <img src={foodfitDrawing} alt="" className="foodfit-chat-header-image" />
                 <span>Ask FoodFit</span>
               </div>
               <button
@@ -531,49 +599,10 @@ function App() {
           aria-label={chatOpen ? "Close FitBasket chat" : "Open FitBasket chat"}
           aria-expanded={chatOpen}
         >
-          {/* swap <Mascot /> for your drawn PNG later */}
-          <Mascot size={64} />
+          <img src={foodfitDrawing} alt="FitBasket mascot" className="foodfit-mascot-image" />
         </button>
       </div>
     </div>
-  );
-}
-
-const MASCOT_COLORS: Record<string, string> = {
-  g: "#6e9a4e", G: "#3e6330", o: "#e08a3c", r: "#c8553d",
-  b: "#c68b4a", B: "#7a4f24", k: "#2f3a2a", p: "#e8a48a",
-};
-
-const MASCOT_ROWS = [
-  "................",
-  ".....ggg........",
-  "...gggGgggoo....",
-  "..ggGggggorrgg..",
-  "..gggggrrrgggg..",
-  "...ggggrrgggg...",
-  ".BBBBBBBBBBBBBB.",
-  ".bBbBbBbBbBbBbb.",
-  ".bbbbbbbbbbbbbb.",
-  ".bbkkbbbbbbkkbb.",
-  ".bbkkbbbbbbkkbb.",
-  ".bpbbbbbbbbbbpb.",
-  ".bbbbkbbbbkbbbb.",
-  ".bbbbbkkkkbbbbb.",
-  ".BBbbbbbbbbbbBB.",
-  "..BBBBBBBBBBBB..",
-];
-
-function Mascot({ size = 64 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" shapeRendering="crispEdges" aria-hidden="true">
-      {MASCOT_ROWS.flatMap((row, y) =>
-        row.split("").map((c, x) =>
-          MASCOT_COLORS[c] ? (
-            <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill={MASCOT_COLORS[c]} />
-          ) : null
-        )
-      )}
-    </svg>
   );
 }
 
