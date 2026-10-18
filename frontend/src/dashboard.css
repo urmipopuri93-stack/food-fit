@@ -391,3 +391,99 @@ body { display: block !important; place-items: normal !important; min-width: 0 !
   .foodfit-app .allocation-footer { grid-template-columns: 1fr; }
   .foodfit-app .contribution-impact { padding-left: 0; }
 }
+
+/* ---------- Tree illustrations: absolute overlay, never a grid column ---------- */
+.foodfit-app .dashboard-banner {
+  position: relative;
+  /* Keep the original compact banner dimensions and three-column layout. */
+  grid-template-columns: auto minmax(0, 1fr) 180px;
+  height: 105px;
+  min-height: 105px;
+  padding: 4px 4px 6px;
+  margin-bottom: 8px;
+}
+
+.foodfit-app .banner-assets {
+  position: absolute;
+  inset: 0 18px 0 auto;
+  width: 225px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  display: block;
+}
+.foodfit-app .dashboard-banner .banner-tree-one {
+  position: absolute;
+  right: 110px;
+  top: -57px;
+  width: 160px;
+  height: 160px;
+}
+
+.foodfit-app .dashboard-banner .banner-tree-two {
+  position: absolute;
+  right: 30px;
+  top: -55px;
+  width: 170px;
+  height: 170px;
+}
+
+.foodfit-app .banner-tree-one { right: 110px; }
+.foodfit-app .banner-tree-two { right: 0; }
+
+/* Hide decorations before they could overlap the title. */
+@media (max-width: 900px) {
+  .foodfit-app .banner-assets { display: none; }
+}
+
+
+/* Hero illustration beside the HarvestGrowth heading.
+   Absolutely positioned: no change to banner layout or tree positions. */
+.foodfit-app .dashboard-banner .banner-hero {
+  position: absolute;
+  left: 280px;
+  top: -130px;
+  width: 340px;
+  height: 340px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .foodfit-app .dashboard-banner .banner-hero { display: none; }
+}
+
+/* Small decorative pixel-art assets */
+.foodfit-app .dashboard-banner .banner-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.foodfit-app .dashboard-banner .decoration {
+  position: absolute;
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* Strawberry near the lower middle */
+.foodfit-app .dashboard-banner .decoration-strawberry {
+  bottom: -129px;
+  right: 180%;
+  width: 70px;
+  height: 70px;
+  transform: rotate(-8deg);
+}
+
+@media (max-width: 900px) {
+  .foodfit-app .banner-decorations {
+    display: none;
+  }
+}
