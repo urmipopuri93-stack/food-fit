@@ -153,6 +153,7 @@ function Panel({
 }
 
 function App() {
+  const [selectedArea, setSelectedArea] = useState<AllocatedArea | null>(null);
   const [draftInventory, setDraftInventory] =
     useState<Record<InventoryKey, number>>(initialInventory);
   const [inventory, setInventory] =
@@ -405,31 +406,61 @@ function App() {
                   <p className="tiny-note">No eligible tracts found.</p>
                 )}
 
-                <div className="allocation-chart">
-                  <div className="chart-bars">
-                    {allocations.map((area, index) => (
-                      <div className="chart-column" key={area.name}>
-                        <div className="chart-value">{area.kits.toLocaleString()}</div>
 
-                        <div className="bar-track">
-                          <div
-                            className="chart-bar"
-                            style={{
-                              height: `${(area.kits / maxAllocation) * 100}%`,
-                              backgroundColor: area.color,
-                            }}
-                          />
-                        </div>
+          <div className="allocation-chart">
+            <div className="chart-bars">
+              {allocations.map((area, index) => (
+                <div className="chart-column" key={area.GEOID}>
+                  <div className="chart-value">
+                    {area.kits.toLocaleString()}
+                  </div>
 
-                        <div className="chart-location">{area.name}</div>
-                        <div className="chart-caption">{area.reason}</div>
-                        <div className="rank-number">
-                          {String(index + 1).padStart(2, "0")}
-                        </div>
-                      </div>
-                    ))}
+                  <div className="bar-track">
+                    <button
+                      type="button"
+                      className="chart-bar interactive-bar"
+                      style={{
+                        height: `${(area.kits / maxAllocation) * 100}%`,
+                        backgroundColor: area.color,
+                      }}
+                      aria-label={`View details for ${area.name}`}
+                      onClick={() =>
+                        setSelectedArea(
+                          selectedArea?.GEOID === area.GEOID ? null : area
+                        )
+                      }
+                    >
+                      <span className="bar-tooltip">
+                        <strong>{area.name}</strong>
+                        <span>{area.kits.toLocaleString()} recommended kits</span>
+                        <span>
+                          Need score: {area.overall_need_score.toFixed(3)}
+                        </span>
+                        <span>Population: {area.TotalPop.toLocaleString()}</span>
+                        <span>{area.reason}</span>
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="chart-location">{area.name}</div>
+                  <div className="chart-caption">{area.reason}</div>
+                  <div className="rank-number">
+                    {String(index + 1).padStart(2, "0")}
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {selectedArea && (
+              <div className="selected-area-details">
+                <strong>{selectedArea.name}</strong>
+                <p>Recommended kits: {selectedArea.kits.toLocaleString()}</p>
+                <p>Need score: {selectedArea.overall_need_score.toFixed(3)}</p>
+                <p>Population: {selectedArea.TotalPop.toLocaleString()}</p>
+                <button onClick={() => setSelectedArea(null)}>Close</button>
+              </div>
+            )}
+          </div>
 
                 <div className="allocation-footer">
                   <div>
