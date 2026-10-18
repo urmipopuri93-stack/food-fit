@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   LayoutDashboard,
@@ -105,6 +106,7 @@ function Panel({
 }
 
 function App() {
+  const navigate = useNavigate();
   const [draftInventory, setDraftInventory] =
     useState<Record<InventoryKey, number>>(initialInventory);
   const [inventory, setInventory] =
@@ -184,6 +186,7 @@ function App() {
 
   const navigation = [
     { label: "Dashboard", icon: LayoutDashboard, active: true },
+    { label: "Map", icon: MapPinned },
     { label: "Planner", icon: MapPinned },
     { label: "Pantries", icon: Store },
     { label: "AI Insights", icon: BarChart3 },
@@ -208,10 +211,11 @@ function App() {
                 type="button"
                 className={`nav-tab ${active ? "active" : ""}`}
                 aria-current={active ? "page" : undefined}
-                onClick={() => {
-                  if (!active) setNotice(`${label} page is not built yet.`);
-                }}
-              >
+            onClick={() => {
+              if (label === "Map") navigate("/map");
+              else if (!active) setNotice(`${label} page is not built yet.`);
+            }}              
+            >
                 <Icon size={16} />
                 <span>{label}</span>
               </button>
