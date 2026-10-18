@@ -907,7 +907,6 @@ input:focus-visible {
   #root {
     height: 100% !important;
     margin: 0 !important;
-    overflow: hidden !important;
   }
 
   .foodfit-app {
