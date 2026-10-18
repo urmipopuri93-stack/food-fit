@@ -1,0 +1,9 @@
+# Nearby-area radius filter
+
+Heatmap controls: use browser location (requested only when clicked), or click Choose a spot on the map and then a map location. Select 5,10,25,50,100,250,500 km. Choose a spot, select a distance, then click Apply distance. A marker shows the selected spot; the unfilled blue circle appears only after Apply distance. Changing the distance requires applying it again. All polygon displays, top-three rankings and donation-area choices use the same filtered area set. Selecting a new location preserves the current heatmap layer and colors. Map picking takes priority over polygon popups while selection mode is active. Optional income filter keeps income_score >=75 (Texas-relative barrier percentile, not poverty rate). Show all Texas clears the filters.
+
+Uses the same Haversine formula as radius:ai/simulation.py. Representative area positions are centers of geometry bounding boxes, not household addresses or population centroids. This is center-in-radius filtering, not polygon intersection or road distance. Scope is Texas. Location denial, timeout, unsupported browsers, empty results and stale location callbacks are handled. No location data is saved or sent to a backend by this feature. Base-map tiles still use the existing OpenStreetMap provider.
+
+Navigation at the top links Home (/), Dashboard (/dashboard), and Map & donation planner (/heatmap). No previous radius UI existed in this checkout.
+
+Verified: 7 automated tests including existing donation tests; production TypeScript/Vite build. Browser manual selection found 1 area within 10 km, 24 within 50 km, then 1 after income filter; displayed rankings include distance. Browser GPS success depends on the device's location permission and was not automated. Final tests and production build passed before committing this feature.

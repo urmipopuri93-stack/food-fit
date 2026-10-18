@@ -74,7 +74,6 @@ export default function WhatIfSimulator({ areas, selectedId, onSelect }: {
         ? <p>Your donation would meet this example's kit goal.</p>
         : <p>After your donation, another {result.remaining.toLocaleString()} kits would be needed to reach this example's goal.</p>}
       {result.extra > 0 && <p>You would have {result.extra.toLocaleString()} extra kits beyond this goal, which you could consider donating to another area.</p>}
-      <p>This is an estimate using older food-access data and one kit per listed resident. It doesn't tell us how many people would actually collect food or whether everyone has enough food long term.</p>
       <div className="simulation-actions"><button type="button" onClick={reset}>Clear result</button><button type="button" onClick={downloadScenario}>Download results</button></div>
     </div>}
   </section>;

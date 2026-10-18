@@ -42,3 +42,10 @@
 .simulation-score-comparison > div { padding:12px; border:1px solid #839270; background:#fffdf6; }
 .simulation-score-comparison span { display:block; font-size:13px; }
 .simulation-score-comparison strong { display:block; font-size:23px; margin-top:6px; }
+.radius-controls { border:2px solid #2b3a2b; background:#f7f3e6; padding:14px; margin-bottom:12px; color:#2b3a2b; }
+.radius-controls h2 { font-size:18px; margin:0 0 10px; }
+.radius-inputs { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.radius-inputs button,.radius-inputs select { padding:8px; border:1px solid #2b3a2b; background:#fffdf6; color:#2b3a2b; font:inherit; cursor:pointer; }
+.radius-inputs button[aria-pressed=true] { background:#2b3a2b; color:white; }
+.radius-inputs label { display:flex; gap:8px; align-items:center; }
+.radius-controls p { font-size:13px; margin:8px 0 0; }

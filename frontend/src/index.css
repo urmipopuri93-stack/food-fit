@@ -1069,4 +1069,6 @@ input:focus-visible {
   .page-footer {
     padding: 6px 4px 0;
   }
-}
+}.app-pages { display:flex; gap:16px; flex-wrap:wrap; padding:12px 18px; background:#2b3a2b; }
+.app-pages a { color:#f7f3e6; text-decoration:none; padding:4px 6px; }
+.app-pages a.active { text-decoration:underline; text-underline-offset:5px; font-weight:bold; }
