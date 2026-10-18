@@ -21,7 +21,7 @@ import {
   ArrowRight,
   X,
 } from "lucide-react";
-import { distanceMiles, getTractCenters, type TractCenters } from "./utils/nearbyRecommendations";
+import { distanceMiles, getTractCenters, nearbyCommunities, type TractCenters } from "./utils/nearbyRecommendations";
 import type { LucideIcon } from "lucide-react";
 import "./dashboard.css";
 
@@ -181,6 +181,8 @@ function App() {
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationError, setLocationError] = useState("");
   const tractCenters = useRef<TractCenters | null>(null);
+  const searchRequest = useRef<AbortController | null>(null);
+  useEffect(() => () => searchRequest.current?.abort(), []);
 
   const [selectedQuestion, setSelectedQuestion] = useState("");
   const [message, setMessage] = useState("");
@@ -211,13 +213,7 @@ function App() {
 
   const eligibleCommunities = useMemo(() => {
     if (!activeSearch || !tractCenters.current) return communities;
-    const centers = tractCenters.current;
-    return communities.filter((community) => {
-      const center = centers.get(community.GEOID);
-      return center && distanceMiles(
-        activeSearch.lat, activeSearch.lng, center.lat, center.lng
-      ) <= activeSearch.radius;
-    });
+    return nearbyCommunities(communities, tractCenters.current, activeSearch.lat, activeSearch.lng, activeSearch.radius);
   }, [communities, activeSearch]);
 
   const allocations = useMemo(
@@ -228,41 +224,50 @@ function App() {
   async function searchNearby(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!address.trim() || locationLoading) return;
+    if (!Number.isFinite(radiusMiles) || radiusMiles <= 0 || radiusMiles > 100) {
+      setLocationError('Choose a distance between 1 and 100 miles.'); return;
+    }
+    const controller = new AbortController();
+    searchRequest.current?.abort(); searchRequest.current = controller;
+    const timer = setTimeout(() => controller.abort(), 25000);
     setLocationLoading(true);
     setLocationError("");
 
     try {
       // Load tract geometry only when location search is first used.
       if (!tractCenters.current) {
-        const geoResponse = await fetch("/data/texas_heatmap.geojson");
+        const geoResponse = await fetch("/data/texas_heatmap.geojson", { signal: controller.signal });
         if (!geoResponse.ok) throw new Error("Couldn't load Texas tract geometry.");
         tractCenters.current = getTractCenters(await geoResponse.json());
       }
 
-      const apiBase = (import.meta.env.VITE_LOCATION_API_URL || "http://localhost:8001").replace(/\/$/, "");
+      const apiBase = (import.meta.env.VITE_LOCATION_API_URL || "").replace(/\/$/, "");
       const response = await fetch(`${apiBase}/api/geocode`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ address: address.trim() }),
+        signal: controller.signal,
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.detail || "Address lookup failed.");
 
       const lat = Number(result.lat);
       const lng = Number(result.lng);
-      if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+      if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat)>90 || Math.abs(lng)>180) {
         throw new Error("Address lookup returned invalid coordinates.");
       }
       setActiveSearch({ lat, lng, radius: radiusMiles, label: String(result.label || address) });
       setNotice(`Showing highest estimated need within ${radiusMiles} miles of your search.`);
     } catch (error) {
-      setLocationError(error instanceof Error ? error.message : "Location search failed.");
+      if (searchRequest.current === controller) setLocationError(controller.signal.aborted ? 'Search timed out. Please try again.' : error instanceof Error ? error.message : "Location search failed.");
     } finally {
-      setLocationLoading(false);
+      clearTimeout(timer);
+      if (searchRequest.current === controller) setLocationLoading(false);
     }
   }
 
   function clearLocationSearch() {
+    searchRequest.current?.abort(); searchRequest.current = null; setLocationLoading(false);
     setActiveSearch(null);
     setLocationError("");
     setAddress("");
@@ -482,7 +487,11 @@ function App() {
                       type="button"
                       className={`dashboard-radius-button ${radiusMiles === miles ? "selected" : ""}`}
                       aria-pressed={radiusMiles === miles}
-                      onClick={() => setRadiusMiles(miles)}
+                      onClick={() => {
+                        setRadiusMiles(miles);
+                        setActiveSearch(previous => previous ? { ...previous, radius: miles } : null);
+                        setNotice('');
+                      }}
                     >
                       {miles} mi
                     </button>
@@ -501,10 +510,10 @@ function App() {
                     <button type="button" onClick={clearLocationSearch}>CLEAR SEARCH</button>
                   </div>
                 )}
-                {locationError && <p className="dashboard-location-error" role="alert">{locationError}</p>}
+                {locationError && <p className="dashboard-location-error" role="alert">{locationError}{activeSearch ? ' Results below still use the last successful location shown above.' : ''}</p>}
 
                 <p className="tiny-note">
-                  Ranks historical ML estimates using straight-line distances to approximate tract centers.
+                  Up to 100 miles, measured in a straight line. Texas areas only. Location lookup uses OpenStreetMap; avoid entering private information. © OpenStreetMap contributors.
                 </p>
               </form>
             </Panel>
@@ -537,30 +546,17 @@ function App() {
               </p>
             )}
 
-            <div className="allocation-chart">
-              <div className="chart-bars">
+            <div className="recommendation-bar-chart" aria-label="Recommended meal kits by area">
                 {allocations.map((area, index) => (
-                  <div className="chart-column" key={area.GEOID}>
-                    <div className="chart-value">{area.kits.toLocaleString()}</div>
-
-                    <div className="bar-track">
-                      <div
-                        className="chart-bar"
-                        style={{
-                          height: `${(area.kits / maxAllocation) * 100}%`,
-                          backgroundColor: area.color,
-                        }}
-                      />
-                    </div>
-
-                    <div className="chart-location">{area.name}</div>
-                    <div className="chart-caption">{area.reason}</div>
-                    <div className="rank-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
-                  </div>
+                  <article className="recommendation-bar-column" key={area.GEOID}>
+                    <strong className="recommendation-bar-value" aria-label={`${area.kits} meal kits`}>{area.kits.toLocaleString()}</strong>
+                    <div className="recommendation-bar-track" aria-hidden="true"><span style={{ height: `${area.kits / maxAllocation * 100}%`, backgroundColor: area.color }} /></div>
+                    <strong className="recommendation-bar-name">{area.name}</strong>
+                    <p className="recommendation-bar-reason">{area.reason}</p>
+                    <p className="recommendation-bar-distance">{activeSearch && tractCenters.current?.[area.GEOID] ? `${distanceMiles(activeSearch.lat, activeSearch.lng, tractCenters.current[area.GEOID].lat, tractCenters.current[area.GEOID].lng).toFixed(1)} miles away` : '\u00a0'}</p>
+                    <span className="recommendation-bar-rank">{String(index + 1).padStart(2,'0')}</span>
+                  </article>
                 ))}
-              </div>
             </div>
 
             <div className="allocation-footer">

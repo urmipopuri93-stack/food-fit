@@ -17,6 +17,8 @@ app.add_middleware(
         "http://localhost:5174",
         "http://127.0.0.1:5173",
         "http://127.0.0.1:5174",
+        "http://127.0.0.1:5176",
+        "http://localhost:5176",
     ],
     allow_methods=["POST", "GET"],
     allow_headers=["Content-Type"],
@@ -38,17 +40,14 @@ async def geocode(request: AddressRequest):
     global _last_request
 
     address = request.address.strip()
+    if len(address) < 3:
+        raise HTTPException(422, "Enter an address, city, or ZIP code.")
     cache_key = address.lower()
 
     if cache_key in _cache:
         return _cache[cache_key]
 
     contact_email = os.environ.get("GEOCODER_CONTACT_EMAIL")
-    if not contact_email:
-        raise HTTPException(
-            status_code=503,
-            detail="Configure GEOCODER_CONTACT_EMAIL on the server.",
-        )
 
     async with _geocode_lock:
         if cache_key in _cache:
@@ -60,14 +59,14 @@ async def geocode(request: AddressRequest):
             await asyncio.sleep(1 - elapsed)
 
         headers = {
-            "User-Agent": f"FoodFitDatathon/1.0 ({contact_email})"
+            "User-Agent": f"FoodFitDatathon/1.0 ({contact_email or 'https://github.com/urmipopuri93-stack/food-fit'})"
         }
 
         try:
             async with httpx.AsyncClient(timeout=15) as client:
                 _last_request = time.monotonic()
                 response = await client.get(
-                    "https://nominatim.openstreetmap.org/search",
+                    os.getenv('GEOCODER_URL', 'https://nominatim.openstreetmap.org/search'),
                     params={
                         "q": address,
                         "format": "json",
@@ -79,7 +78,7 @@ async def geocode(request: AddressRequest):
                 response.raise_for_status()
                 results = response.json()
 
-        except httpx.HTTPError:
+        except (httpx.HTTPError, ValueError):
             raise HTTPException(
                 status_code=502,
                 detail="Address lookup service unavailable.",

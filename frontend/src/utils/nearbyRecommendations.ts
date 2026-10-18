@@ -6,6 +6,15 @@ export type TractCenters = Record<
   { lat: number; lng: number }
 >;
 
+export function nearbyCommunities<T extends { GEOID: string }>(communities: T[], centers: TractCenters, lat: number, lng: number, miles: number): T[] {
+  if (!Number.isFinite(miles) || miles <= 0 || miles > 100) throw new Error('Distance must be between 1 and 100 miles.');
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat)>90 || Math.abs(lng)>180) throw new Error('Invalid search location.');
+  return communities.filter(c => {
+    const point = centers[c.GEOID];
+    return point && distanceMiles(lat,lng,point.lat,point.lng)<=miles;
+  });
+}
+
 export function distanceMiles(
   lat1: number,
   lng1: number,

@@ -389,3 +389,70 @@ body { display: block !important; place-items: normal !important; min-width: 0 !
   .foodfit-app .allocation-footer { grid-template-columns: 1fr; }
   .foodfit-app .contribution-impact { padding-left: 0; }
 }
+/* Let content determine page height; avoid nested, clipped panel scrolling. */
+html, body, #root { height:auto !important; min-height:100%; overflow:visible !important; }
+.foodfit-app { height:auto; min-height:100vh; overflow:visible; padding-bottom:32px; }
+.foodfit-app .app-frame { flex:none; }
+.foodfit-app .app-frame > .dashboard-grid-top { flex:none; grid-template-rows:auto; align-items:start; }
+.foodfit-app .inventory-panel,.foodfit-app .location-panel { flex:none; }
+.foodfit-app .retro-panel { overflow:visible; }
+.foodfit-app .panel-content { flex:none; min-height:auto; }
+.foodfit-app .inventory-panel .panel-content,.foodfit-app .location-panel .panel-content { overflow:visible; }
+.foodfit-app .allocation-chart { flex:none; overflow:visible; }
+.foodfit-app .chart-bars { flex:none; grid-template-rows:auto !important; }
+.foodfit-app .chart-bars .chart-column { height:auto; grid-template-rows:auto 180px auto auto auto !important; }
+.foodfit-app .contribution-list { flex:none; display:block; overflow:visible; }
+.foodfit-app .contribution-card { flex:none; min-height:135px; padding:16px 0; }
+.foodfit-app .contribution-info span { display:block; }
+.foodfit-app .impact-label { display:block; }
+.foodfit-app .panel-content { padding:16px; }
+.foodfit-app .panel-description,.foodfit-app .tiny-note { font-size:14px; line-height:1.5; }
+.foodfit-app .chart-location { font-size:14px !important; }
+
+.foodfit-app .recommendation-list { display:flex; flex-direction:column; gap:14px; margin-top:14px; }
+.foodfit-app .recommendation-card { min-width:0; padding:16px; border:1px solid var(--tan-dark); background:var(--paper-2); }
+.foodfit-app .recommendation-heading { display:flex; align-items:flex-start; gap:10px; }
+.foodfit-app .recommendation-heading strong { min-width:0; font-size:16px; line-height:1.5; overflow-wrap:break-word; }
+.foodfit-app .recommendation-rank { flex:none; padding:2px 8px; background:var(--tan); font-weight:700; }
+.foodfit-app .recommendation-card p { margin:8px 0 0; font-size:14px; line-height:1.5; }
+.foodfit-app .recommendation-card .recommendation-kits { font-size:20px; font-weight:700; color:var(--green-dark); }
+.foodfit-app .recommendation-meter { height:10px; background:var(--tan); margin-top:12px; }
+.foodfit-app .recommendation-meter span { display:block; height:100%; }
+.foodfit-app .allocation-footer { margin-top:18px; }
+
+/* Reference layout: inputs left, three-bar recommendations right. */
+.foodfit-app .app-frame > .dashboard-grid-top { grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:18px; }
+.foodfit-app .contributions-panel { grid-column:1 / -1; }
+.foodfit-app .inventory-panel .panel-content { max-height:280px; overflow-y:auto; }
+.foodfit-app .location-panel .panel-content { padding:20px; }
+.foodfit-app .dashboard-location-label { font-size:16px; }
+.foodfit-app .dashboard-location-address { min-height:52px; font-size:17px; }
+.foodfit-app .dashboard-radius-button { min-height:48px; font-size:16px; }
+.foodfit-app .recommendation-bar-chart { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; border:1px solid var(--tan-dark); background:var(--paper-2); padding:18px 14px 14px; margin-top:10px; }
+.foodfit-app .recommendation-bar-column { min-width:0; display:grid; grid-template-rows:30px 180px minmax(52px,auto) minmax(36px,auto) 25px 30px; text-align:center; align-content:start; }
+.foodfit-app .recommendation-bar-value { font:700 22px var(--pixel); }
+.foodfit-app .recommendation-bar-track { position:relative; border-bottom:3px solid #4a4b40; background:repeating-linear-gradient(to top,transparent 0 58px,rgba(60,58,40,.12) 58px 60px); }
+.foodfit-app .recommendation-bar-track span { position:absolute; bottom:0; left:19%; width:62%; display:block; }
+.foodfit-app .recommendation-bar-name { font-size:16px; line-height:1.35; padding:8px 6px 0; overflow-wrap:normal; word-break:normal; }
+.foodfit-app .recommendation-bar-reason,.foodfit-app .recommendation-bar-distance { font-size:13px; line-height:1.4; color:var(--muted); padding:4px; margin:0; }
+.foodfit-app .recommendation-bar-rank { justify-self:center; align-self:end; padding:3px 8px; border:1px solid #9e987a; background:var(--tan); font:500 14px var(--pixel); }
+.foodfit-app .allocation-footer { margin-top:14px; }
+@media(max-width:900px) {
+ .foodfit-app .app-frame > .dashboard-grid-top { grid-template-columns:minmax(0,1fr); }
+ .foodfit-app .contributions-panel { grid-column:auto; }
+}
+@media(max-width:420px) {
+ .foodfit-app .recommendation-bar-name { font-size:12px; padding-inline:3px; }
+ .foodfit-app .recommendation-bar-chart { padding-inline:6px; }
+ .foodfit-app .recommendation-bar-reason,.foodfit-app .recommendation-bar-distance { font-size:11px; }
+}
+
+/* Preserve the dashboard's three-column structure; chart styling is panel-local. */
+@media(min-width:1101px) {
+ .foodfit-app .app-frame > .dashboard-grid-top { grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1.2fr); }
+ .foodfit-app .contributions-panel { grid-column:auto; }
+}
+@media(min-width:901px) and (max-width:1100px) {
+ .foodfit-app .app-frame > .dashboard-grid-top { grid-template-columns:minmax(0,1fr); }
+ .foodfit-app .contributions-panel { grid-column:auto; }
+}
