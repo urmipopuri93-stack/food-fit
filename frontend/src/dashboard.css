@@ -473,6 +473,24 @@ body { display: block !important; place-items: normal !important; min-width: 0 !
   pointer-events: none;
 }
 
+/* Cherry near the upper middle */
+.foodfit-app .dashboard-banner .decoration-cherry {
+  top: 460px;
+  left: -310%;
+  width: 150px;
+  height: 150px;
+  transform: rotate(-12deg);
+}
+
+/* Flower toward the right */
+.foodfit-app .dashboard-banner .decoration-flower {
+  top: 305px;
+  right: 1110px;
+  width: 150px;
+  height: 150px;
+  transform: rotate(12deg);
+}
+
 /* Strawberry near the lower middle */
 .foodfit-app .dashboard-banner .decoration-strawberry {
   bottom: -129px;
