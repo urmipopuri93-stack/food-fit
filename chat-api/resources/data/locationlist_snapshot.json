@@ -1,0 +1,1200 @@
+{
+  "dataset": "locationlist",
+  "source": {
+    "file": "LocationListInfo.pdf",
+    "search_area": "15 miles around Executive Education Center, 790 Drive E, Richardson, TX 75080, USA",
+    "publisher": null,
+    "captured_at": null,
+    "added_to_repository": "2026-10-17 (branch manila/data, commit 5c072ba)"
+  },
+  "geocoding": {
+    "service": "US Census Geocoder, benchmark Public_AR_Current",
+    "run_on": "2026-10-18"
+  },
+  "built_at": "2026-10-18",
+  "records": [
+    {
+      "id": "lovepacs-plano--food-pantry",
+      "name": "Lovepacs Plano",
+      "program": "Food Pantry",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "3900 W 15th St Ste 406 Plano, TX 75075",
+      "city": "Plano",
+      "zip": "75075",
+      "location": {
+        "lat": 33.019188207388,
+        "lng": -96.765595383959,
+        "matched_address": "3900 W 15TH ST, PLANO, TX, 75075",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": "suite omitted for geocoding"
+      },
+      "phone": null,
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": "Call for Hours",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Hours"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "local-good-pantry--food-pantry",
+      "name": "Local Good Pantry",
+      "program": "Food Pantry",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "741 S Sherman St Richardson, TX 75081",
+      "city": "Richardson",
+      "zip": "75081",
+      "location": {
+        "lat": 32.941996005057,
+        "lng": -96.739480969774,
+        "matched_address": "741 SHERMAN ST, RICHARDSON, TX, 75081",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": "matched without the 'S' directional - review"
+      },
+      "phone": null,
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": "Tuesday 8:00 AM - 12:00 PM Thursday 8:00 AM - 12:00 PM Saturday 9:00 AM - 12:00 PM",
+      "schedule": [
+        {
+          "day": "Tuesday",
+          "opens": "08:00",
+          "closes": "12:00",
+          "note": null,
+          "recurrence_limited": false
+        },
+        {
+          "day": "Thursday",
+          "opens": "08:00",
+          "closes": "12:00",
+          "note": null,
+          "recurrence_limited": false
+        },
+        {
+          "day": "Saturday",
+          "opens": "09:00",
+          "closes": "12:00",
+          "note": null,
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "organization",
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "first-baptist-richardson--drive-thru-food-distribution",
+      "name": "First Baptist Richardson",
+      "program": "Drive Thru Food Distribution",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "1001 N CENTRAL EXPY #100 RICHARDSON, TX 75080",
+      "city": "Richardson",
+      "zip": "75080",
+      "location": null,
+      "phone": null,
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": null,
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "network-of-community-ministries--food-distribution-program",
+      "name": "Network of Community Ministries",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "1500 International Pkwy Ste 300 Richardson, TX 75081",
+      "city": "Richardson",
+      "zip": "75081",
+      "location": {
+        "lat": 32.966034013076,
+        "lng": -96.709272361835,
+        "matched_address": "1500 INTERNATIONAL PKWY, RICHARDSON, TX, 75081",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": "suite omitted for geocoding"
+      },
+      "phone": "972-234-8880",
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": "Monday 8:30 AM - 4:00 PM Tuesday 8:30 AM - 4:00 PM Wednesday 8:30 AM - 4:00 PM Thursday 8:30 AM - 7:00 PM Saturday 9:00 AM - 2:00 PM",
+      "schedule": [
+        {
+          "day": "Monday",
+          "opens": "08:30",
+          "closes": "16:00",
+          "note": null,
+          "recurrence_limited": false
+        },
+        {
+          "day": "Tuesday",
+          "opens": "08:30",
+          "closes": "16:00",
+          "note": null,
+          "recurrence_limited": false
+        },
+        {
+          "day": "Wednesday",
+          "opens": "08:30",
+          "closes": "16:00",
+          "note": null,
+          "recurrence_limited": false
+        },
+        {
+          "day": "Thursday",
+          "opens": "08:30",
+          "closes": "19:00",
+          "note": null,
+          "recurrence_limited": false
+        },
+        {
+          "day": "Saturday",
+          "opens": "09:00",
+          "closes": "14:00",
+          "note": null,
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [
+        "The organization's general hours differ from this program's hours: Monday 8:00 AM - 4:00 PM (The Front Office does not take walk-ins after 3:30pm.) Tuesday 8:00 AM - 4:00 PM (The Front Office does not take walk-ins after 3:30pm.) Wednesday 8:00 AM - 4:00 PM (The Front Office does not take walk-ins after 3:30pm.) Thursday 8:00 AM - 7:00 PM (The Front Office does not take walk-ins after 6:30pm) Saturday 9:00 AM - 2:00 PM (Only Food Pantry Open: Appointments Required)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "network-of-community-ministries--snap-application-assistance",
+      "name": "Network of Community Ministries",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "1500 International Pkwy Ste 300 Richardson, TX 75081",
+      "city": "Richardson",
+      "zip": "75081",
+      "location": {
+        "lat": 32.966034013076,
+        "lng": -96.709272361835,
+        "matched_address": "1500 INTERNATIONAL PKWY, RICHARDSON, TX, 75081",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": "suite omitted for geocoding"
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": null,
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information",
+        "Organization hours (not this program's service times): Monday 8:00 AM - 4:00 PM (The Front Office does not take walk-ins after 3:30pm.) Tuesday 8:00 AM - 4:00 PM (The Front Office does not take walk-ins after 3:30pm.) Wednesday 8:00 AM - 4:00 PM (The Front Office does not take walk-ins after 3:30pm.) Thursday 8:00 AM - 7:00 PM (The Front Office does not take walk-ins after 6:30pm) Saturday 9:00 AM - 2:00 PM (Only Food Pantry Open: Appointments Required)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "midpark-towers--csfp-senior-nutrition",
+      "name": "Midpark Towers",
+      "program": "CSFP Senior Nutrition",
+      "category": "senior_food_box",
+      "source_category": "CSFP Senior Nutrition",
+      "address": "8550 MIDPARK RD Dallas, TX 75240",
+      "city": "Dallas",
+      "zip": "75240",
+      "location": {
+        "lat": 32.936429846552,
+        "lng": -96.756879238012,
+        "matched_address": "8550 MIDPARK RD, DALLAS, TX, 75240",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-367-3123",
+      "phone_label": "CSFP Team",
+      "website": null,
+      "email": "csfpteam@ntfb.org",
+      "hours_text": "Monday 9:30 AM - 10:30 AM (Every Other Month) (3rd Week of Month)",
+      "schedule": [
+        {
+          "day": "Monday",
+          "opens": "09:30",
+          "closes": "10:30",
+          "note": "Every Other Month 3rd Week of Month",
+          "recurrence_limited": true
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "family-gateway--shelter-program",
+      "name": "Family Gateway",
+      "program": "Shelter Program",
+      "category": "other_services",
+      "source_category": "Shelter",
+      "address": "19373 Preston Rd Dallas, TX 75252",
+      "city": "Dallas",
+      "zip": "75252",
+      "location": null,
+      "phone": "972-248-7045",
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": null,
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "family-gateway--snap-application-assistance",
+      "name": "Family Gateway",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "19373 Preston Rd Dallas, TX 75252",
+      "city": "Dallas",
+      "zip": "75252",
+      "location": null,
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": null,
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "minnies-food-pantry--food-distribution-program",
+      "name": "MINNIES FOOD PANTRY",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "661 18th St Plano, TX 75074",
+      "city": "Plano",
+      "zip": "75074",
+      "location": {
+        "lat": 33.024243263729,
+        "lng": -96.707051947666,
+        "matched_address": "661 18TH ST, PLANO, TX, 75074",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "972-596-0253",
+      "phone_label": null,
+      "website": "https://www.minniesfoodpantry.org/",
+      "email": null,
+      "hours_text": null,
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": [
+        "The listed email domain (minniesfoodpdantry.org) does not match the website (minniesfoodpantry.org) and may be a typo in the source; it is not shown."
+      ]
+    },
+    {
+      "id": "minnies-food-pantry--snap-application-assistance",
+      "name": "MINNIES FOOD PANTRY",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "661 18th St Plano, TX 75074",
+      "city": "Plano",
+      "zip": "75074",
+      "location": {
+        "lat": 33.024243263729,
+        "lng": -96.707051947666,
+        "matched_address": "661 18TH ST, PLANO, TX, 75074",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": "https://www.minniesfoodpantry.org/",
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "transfiguration--food-pantry",
+      "name": "Transfiguration",
+      "program": "Food Pantry",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "14115 Hillcrest Rd Dallas, TX 75254",
+      "city": "Dallas",
+      "zip": "75254",
+      "location": null,
+      "phone": null,
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": "Please contact us for hours",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Please contact us for hours"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "transfiguration--snap-application-assistance",
+      "name": "Transfiguration",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "14115 Hillcrest Rd Dallas, TX 75254",
+      "city": "Dallas",
+      "zip": "75254",
+      "location": null,
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": null,
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "christ-community--christ-community-food-distribution",
+      "name": "Christ Community",
+      "program": "Christ Community Food Distribution",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "701 Centennial Blvd Richardson, TX 75081",
+      "city": "Richardson",
+      "zip": "75081",
+      "location": null,
+      "phone": "469-638-5355",
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": null,
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "local-good-center--wellness-program",
+      "name": "Local Good Center",
+      "program": "Wellness Program",
+      "category": "other_services",
+      "source_category": "Educational Courses/Classes",
+      "address": "2201 K Ave Plano, TX 75074",
+      "city": "Plano",
+      "zip": "75074",
+      "location": {
+        "lat": 33.028479757263,
+        "lng": -96.699298770398,
+        "matched_address": "2201 K AVE, PLANO, TX, 75074",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "972-783-8800",
+      "phone_label": null,
+      "website": "https://www.localgood.org",
+      "email": null,
+      "hours_text": null,
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "dallas-new-life-seven-day-adventist--food-pantry",
+      "name": "Dallas New Life Seven Day Adventist",
+      "program": "Food Pantry",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "1000 Centennial Blvd Richardson, TX 75081",
+      "city": "Richardson",
+      "zip": "75081",
+      "location": {
+        "lat": 32.932689164161,
+        "lng": -96.708735674578,
+        "matched_address": "1000 CENTENNIAL BLVD, RICHARDSON, TX, 75081",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": null,
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": "Wednesday 7:00 PM - 9:00 PM",
+      "schedule": [
+        {
+          "day": "Wednesday",
+          "opens": "19:00",
+          "closes": "21:00",
+          "note": null,
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [
+        "The organization's general hours differ from this program's hours: Wednesday 6:00 PM - 8:00 PM (First 3 Wednesdays of the month)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "dallas-new-life-seven-day-adventist--snap-application-assistance",
+      "name": "Dallas New Life Seven Day Adventist",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "1000 Centennial Blvd Richardson, TX 75081",
+      "city": "Richardson",
+      "zip": "75081",
+      "location": {
+        "lat": 32.932689164161,
+        "lng": -96.708735674578,
+        "matched_address": "1000 CENTENNIAL BLVD, RICHARDSON, TX, 75081",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": null,
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information",
+        "Organization hours (not this program's service times): Wednesday 6:00 PM - 8:00 PM (First 3 Wednesdays of the month)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "dallas-college-richland-campus--food-distribution-program",
+      "name": "Dallas College Richland Campus",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": null,
+      "address": "12800 Abrams Road El Paso Hall, Room E030 Dallas, TX 75243",
+      "city": "Dallas",
+      "zip": "75243",
+      "location": null,
+      "phone": "972-238-3771",
+      "phone_label": null,
+      "website": "https://www.dallascollege.edu/resources/food-pantries/mobile-food-truck/",
+      "email": null,
+      "hours_text": "Friday 9:00 AM - 5:00 PM (Our pantries are open to community members on Fridays.)",
+      "schedule": [
+        {
+          "day": "Friday",
+          "opens": "09:00",
+          "closes": "17:00",
+          "note": "Our pantries are open to community members on Fridays.",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "organization",
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "christian-benevolent-outreach--food-distribution-program",
+      "name": "Christian Benevolent Outreach",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "1804 P Ave Plano, TX 75074",
+      "city": "Plano",
+      "zip": "75074",
+      "location": {
+        "lat": 33.024134315106,
+        "lng": -96.690609615271,
+        "matched_address": "1804 P AVE, PLANO, TX, 75074",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "469-704-5374",
+      "phone_label": "Catholic Charities of Dallas",
+      "website": "https://willowcreekfellowship.org/foodpantry.html",
+      "email": null,
+      "hours_text": "Tuesday 8:00 AM - 11:00 AM (Or until all food has been distributed)",
+      "schedule": [
+        {
+          "day": "Tuesday",
+          "opens": "08:00",
+          "closes": "11:00",
+          "note": "Or until all food has been distributed",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "christian-benevolent-outreach--snap-application-assistance",
+      "name": "Christian Benevolent Outreach",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "1804 P Ave Plano, TX 75074",
+      "city": "Plano",
+      "zip": "75074",
+      "location": {
+        "lat": 33.024134315106,
+        "lng": -96.690609615271,
+        "matched_address": "1804 P AVE, PLANO, TX, 75074",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": "https://willowcreekfellowship.org/foodpantry.html",
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information",
+        "Organization hours (not this program's service times): Tuesday 8:00 AM - 11:00 AM (Or until all food has been distributed)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "jewish-family-service-of-dallas--food-distribution-program",
+      "name": "Jewish Family Service of Dallas",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "16301 Quorum Drive Addison, TX 75001",
+      "city": "Addison",
+      "zip": "75001",
+      "location": {
+        "lat": 32.972261778721,
+        "lng": -96.824972603873,
+        "matched_address": "16301 QUORUM DR, ADDISON, TX, 75001",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "972-437-9950",
+      "phone_label": null,
+      "website": "https://www.jfsdallas.org/FP",
+      "email": "foodpantry@jfsdallas.org",
+      "hours_text": "Monday 10:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!) (1st, 3rd Week of Month) Tuesday 9:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!) Thursday 9:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!) Friday 9:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!)",
+      "schedule": [
+        {
+          "day": "Monday",
+          "opens": "10:00",
+          "closes": "13:00",
+          "note": "Appointments prioritized - Walk-ins are welcome! 1st, 3rd Week of Month",
+          "recurrence_limited": true
+        },
+        {
+          "day": "Tuesday",
+          "opens": "09:00",
+          "closes": "13:00",
+          "note": "Appointments prioritized - Walk-ins are welcome!",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Thursday",
+          "opens": "09:00",
+          "closes": "13:00",
+          "note": "Appointments prioritized - Walk-ins are welcome!",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Friday",
+          "opens": "09:00",
+          "closes": "13:00",
+          "note": "Appointments prioritized - Walk-ins are welcome!",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [],
+      "closures": [],
+      "appointment": "prioritized_walk_ins_welcome",
+      "notes": []
+    },
+    {
+      "id": "jewish-family-service-of-dallas--snap-application-assistance",
+      "name": "Jewish Family Service of Dallas",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "16301 Quorum Drive Addison, TX 75001",
+      "city": "Addison",
+      "zip": "75001",
+      "location": {
+        "lat": 32.972261778721,
+        "lng": -96.824972603873,
+        "matched_address": "16301 QUORUM DR, ADDISON, TX, 75001",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": "https://www.jfsdallas.org/FP",
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information",
+        "Organization hours (not this program's service times): Monday 10:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!) (1st, 3rd Week of Month) Tuesday 9:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!) Thursday 9:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!) Friday 9:00 AM - 1:00 PM (Appointments prioritized - Walk-ins are welcome!)"
+      ],
+      "closures": [],
+      "appointment": "prioritized_walk_ins_welcome",
+      "notes": []
+    },
+    {
+      "id": "celestial-church-of-christ--celestial-church-of-christ",
+      "name": "Celestial Church Of Christ",
+      "program": "Celestial Church Of Christ",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "9221 LBJ Freeway Suite 209 Dallas, TX 75243",
+      "city": "Dallas",
+      "zip": "75243",
+      "location": null,
+      "phone": "214-850-1433",
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": "Wednesday 5:00 PM - 7:30 PM (Sundays from 9am to 2pm) Friday 5:00 PM - 7:30 PM (Sundays from 9am to 2pm)",
+      "schedule": [
+        {
+          "day": "Wednesday",
+          "opens": "17:00",
+          "closes": "19:30",
+          "note": "Sundays from 9am to 2pm",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Friday",
+          "opens": "17:00",
+          "closes": "19:30",
+          "note": "Sundays from 9am to 2pm",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "organization",
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "the-storehouse-community-center--seven-loaves-food-pantry",
+      "name": "The Storehouse Community Center",
+      "program": "Seven Loaves Food Pantry",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "1401 Mira Vista Boulevard Plano, TX 75093",
+      "city": "Plano",
+      "zip": "75093",
+      "location": {
+        "lat": 33.021638783597,
+        "lng": -96.819307264765,
+        "matched_address": "1401 MIRA VISTA BLVD, PLANO, TX, 75093",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "469-385-1813",
+      "phone_label": null,
+      "website": "https://www.thestorehousecc.org",
+      "email": "info@thestorehousecc.org",
+      "hours_text": "Tuesday 3:30 PM - 5:00 PM (Appointment required to receive food.) Wednesday 5:30 PM - 7:00 PM (Appointment required to receive food.) Thursday 3:30 PM - 5:00 PM (Appointment required to receive food.)",
+      "schedule": [
+        {
+          "day": "Tuesday",
+          "opens": "15:30",
+          "closes": "17:00",
+          "note": "Appointment required to receive food.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Wednesday",
+          "opens": "17:30",
+          "closes": "19:00",
+          "note": "Appointment required to receive food.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Thursday",
+          "opens": "15:30",
+          "closes": "17:00",
+          "note": "Appointment required to receive food.",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [
+        "Organization hours (not this program's service times): Monday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Tuesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Wednesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Thursday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Friday 9:00 AM - 12:00 PM (Office hours. Please check individual programs for service times.)"
+      ],
+      "closures": [],
+      "appointment": "required",
+      "notes": []
+    },
+    {
+      "id": "the-storehouse-community-center--joseph-s-coat-clothing-closet",
+      "name": "The Storehouse Community Center",
+      "program": "Joseph's Coat Clothing Closet",
+      "category": "other_services",
+      "source_category": "Distribution of Non-Food Items",
+      "address": "1401 Mira Vista Boulevard Plano, TX 75093",
+      "city": "Plano",
+      "zip": "75093",
+      "location": {
+        "lat": 33.021638783597,
+        "lng": -96.819307264765,
+        "matched_address": "1401 MIRA VISTA BLVD, PLANO, TX, 75093",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "469-385-1813",
+      "phone_label": null,
+      "website": "https://www.thestorehousecc.org",
+      "email": "info@thestorehousecc.org",
+      "hours_text": "Monday 9:00 AM - 4:00 PM (Appointment required to shop for clothing.) Wednesday 9:00 AM - 4:00 PM (Appointment required to shop for clothing.)",
+      "schedule": [
+        {
+          "day": "Monday",
+          "opens": "09:00",
+          "closes": "16:00",
+          "note": "Appointment required to shop for clothing.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Wednesday",
+          "opens": "09:00",
+          "closes": "16:00",
+          "note": "Appointment required to shop for clothing.",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [
+        "Organization hours (not this program's service times): Monday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Tuesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Wednesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Thursday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Friday 9:00 AM - 12:00 PM (Office hours. Please check individual programs for service times.)"
+      ],
+      "closures": [],
+      "appointment": "required",
+      "notes": []
+    },
+    {
+      "id": "the-storehouse-community-center--project-hope-neighbor-care",
+      "name": "The Storehouse Community Center",
+      "program": "Project Hope Neighbor Care",
+      "category": "other_services",
+      "source_category": "Case Management Services",
+      "address": "1401 Mira Vista Boulevard Plano, TX 75093",
+      "city": "Plano",
+      "zip": "75093",
+      "location": {
+        "lat": 33.021638783597,
+        "lng": -96.819307264765,
+        "matched_address": "1401 MIRA VISTA BLVD, PLANO, TX, 75093",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "469-385-1813",
+      "phone_label": null,
+      "website": "https://www.thestorehousecc.org",
+      "email": "info@thestorehousecc.org",
+      "hours_text": "Monday 9:00 AM - 5:00 PM (Office hours. Project Hope staff will respond to emails & calls.) Tuesday 9:00 AM - 5:00 PM (Office hours. Project Hope staff will respond to emails & calls.) Wednesday 9:00 AM - 5:00 PM (Office hours. Project Hope staff will respond to emails & calls.) Thursday 9:00 AM - 5:00 PM (Office hours. Project Hope staff will respond to emails & calls.) Friday 9:00 AM - 12:00 PM (Office hours. Project Hope staff will respond to emails & calls.)",
+      "schedule": [
+        {
+          "day": "Monday",
+          "opens": "09:00",
+          "closes": "17:00",
+          "note": "Office hours. Project Hope staff will respond to emails & calls.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Tuesday",
+          "opens": "09:00",
+          "closes": "17:00",
+          "note": "Office hours. Project Hope staff will respond to emails & calls.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Wednesday",
+          "opens": "09:00",
+          "closes": "17:00",
+          "note": "Office hours. Project Hope staff will respond to emails & calls.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Thursday",
+          "opens": "09:00",
+          "closes": "17:00",
+          "note": "Office hours. Project Hope staff will respond to emails & calls.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Friday",
+          "opens": "09:00",
+          "closes": "12:00",
+          "note": "Office hours. Project Hope staff will respond to emails & calls.",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [
+        "Organization hours (not this program's service times): Monday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Tuesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Wednesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Thursday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Friday 9:00 AM - 12:00 PM (Office hours. Please check individual programs for service times.)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "the-storehouse-community-center--the-academy-education-program",
+      "name": "The Storehouse Community Center",
+      "program": "The Academy Education Program",
+      "category": "other_services",
+      "source_category": "Educational Courses/Classes",
+      "address": "1401 Mira Vista Boulevard Plano, TX 75093",
+      "city": "Plano",
+      "zip": "75093",
+      "location": {
+        "lat": 33.021638783597,
+        "lng": -96.819307264765,
+        "matched_address": "1401 MIRA VISTA BLVD, PLANO, TX, 75093",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "469-385-1813",
+      "phone_label": null,
+      "website": "https://www.thestorehousecc.org",
+      "email": "info@thestorehousecc.org",
+      "hours_text": "Monday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Tuesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Wednesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Thursday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Friday 9:00 AM - 12:00 PM (Office hours. Please check individual programs for service times.)",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Organization hours (not this program's service times): Monday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Tuesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Wednesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Thursday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Friday 9:00 AM - 12:00 PM (Office hours. Please check individual programs for service times.)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "the-storehouse-community-center--snap-application-assistance",
+      "name": "The Storehouse Community Center",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "1401 Mira Vista Boulevard Plano, TX 75093",
+      "city": "Plano",
+      "zip": "75093",
+      "location": {
+        "lat": 33.021638783597,
+        "lng": -96.819307264765,
+        "matched_address": "1401 MIRA VISTA BLVD, PLANO, TX, 75093",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": "https://www.thestorehousecc.org",
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information",
+        "Organization hours (not this program's service times): Monday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Tuesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Wednesday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Thursday 9:00 AM - 5:00 PM (Office hours. Please check individual programs for service times.) Friday 9:00 AM - 12:00 PM (Office hours. Please check individual programs for service times.)"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "vietnamese-senior-association--food-distribution-program",
+      "name": "Vietnamese Senior Association",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "3221 Belt Line Rd Garland, TX 75044",
+      "city": "Garland",
+      "zip": "75044",
+      "location": null,
+      "phone": "972-414-1388",
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": null,
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "vietnamese-senior-association--snap-application-assistance",
+      "name": "Vietnamese Senior Association",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "3221 Belt Line Rd Garland, TX 75044",
+      "city": "Garland",
+      "zip": "75044",
+      "location": null,
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": null,
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "salvation-army-plano-corps--food-distribution-program",
+      "name": "SALVATION ARMY PLANO CORPS",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "3528 14TH ST PLANO, TX 75074",
+      "city": "Plano",
+      "zip": "75074",
+      "location": {
+        "lat": 33.01459014323,
+        "lng": -96.667386581968,
+        "matched_address": "3528 14TH ST, PLANO, TX, 75074",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "972-423-8246",
+      "phone_label": null,
+      "website": null,
+      "email": null,
+      "hours_text": "Tuesday 10:30 AM - 12:30 PM (By appointment only.) Thursday 10:30 AM - 12:30 PM (By appointment only.)",
+      "schedule": [
+        {
+          "day": "Tuesday",
+          "opens": "10:30",
+          "closes": "12:30",
+          "note": "By appointment only.",
+          "recurrence_limited": false
+        },
+        {
+          "day": "Thursday",
+          "opens": "10:30",
+          "closes": "12:30",
+          "note": "By appointment only.",
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [
+        "The organization's general hours differ from this program's hours: Monday 9:30 AM - 3:30 PM Tuesday 9:30 AM - 3:30 PM Wednesday 9:30 AM - 3:30 PM Thursday 9:30 AM - 3:30 PM Friday 9:30 AM - 3:30 PM"
+      ],
+      "closures": [
+        "2026-11-26",
+        "2026-11-27",
+        "2026-12-22",
+        "2026-12-24",
+        "2026-12-25"
+      ],
+      "appointment": "required",
+      "notes": []
+    },
+    {
+      "id": "salvation-army-plano-corps--snap-application-assistance",
+      "name": "SALVATION ARMY PLANO CORPS",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "3528 14TH ST PLANO, TX 75074",
+      "city": "Plano",
+      "zip": "75074",
+      "location": {
+        "lat": 33.01459014323,
+        "lng": -96.667386581968,
+        "matched_address": "3528 14TH ST, PLANO, TX, 75074",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": null,
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information",
+        "Organization hours (not this program's service times): Monday 9:30 AM - 3:30 PM Tuesday 9:30 AM - 3:30 PM Wednesday 9:30 AM - 3:30 PM Thursday 9:30 AM - 3:30 PM Friday 9:30 AM - 3:30 PM"
+      ],
+      "closures": [
+        "2026-11-26",
+        "2026-11-27",
+        "2026-12-22",
+        "2026-12-24",
+        "2026-12-25"
+      ],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "better-promises-main-office--better-promises-food-assistance-program",
+      "name": "Better Promises - Main Office",
+      "program": "Better Promises Food Assistance Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "12160 Abrams Rd Suite 109 Dallas, TX 75243",
+      "city": "Dallas",
+      "zip": "75243",
+      "location": {
+        "lat": 32.914929369192,
+        "lng": -96.73531178685,
+        "matched_address": "12160 ABRAMS RD, DALLAS, TX, 75243",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": "suite omitted for geocoding"
+      },
+      "phone": "469-504-8348",
+      "phone_label": null,
+      "website": "https://www.betterpromises.org",
+      "email": "support@betterpromises.org",
+      "hours_text": null,
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "islamic-assn-of-collin-cnty--food-distribution-program",
+      "name": "ISLAMIC ASSN OF COLLIN CNTY",
+      "program": "Food Distribution Program",
+      "category": "food_distribution",
+      "source_category": "Food Distribution",
+      "address": "6401 INDEPENDENCE PARKWAY PLANO, TX 75023",
+      "city": "Plano",
+      "zip": "75023",
+      "location": {
+        "lat": 33.059509354689,
+        "lng": -96.750635802997,
+        "matched_address": "6401 INDEPENDENCE PKWY, PLANO, TX, 75023",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-707-7825",
+      "phone_label": null,
+      "website": "https://www.planomasjid.org/",
+      "email": null,
+      "hours_text": "Saturday 8:00 AM - 12:00 PM",
+      "schedule": [
+        {
+          "day": "Saturday",
+          "opens": "08:00",
+          "closes": "12:00",
+          "note": null,
+          "recurrence_limited": false
+        }
+      ],
+      "schedule_basis": "program",
+      "hours_notes": [],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    },
+    {
+      "id": "islamic-assn-of-collin-cnty--snap-application-assistance",
+      "name": "ISLAMIC ASSN OF COLLIN CNTY",
+      "program": "SNAP Application Assistance",
+      "category": "snap_application_help",
+      "source_category": "Public Benefits Assistance",
+      "address": "6401 INDEPENDENCE PARKWAY PLANO, TX 75023",
+      "city": "Plano",
+      "zip": "75023",
+      "location": {
+        "lat": 33.059509354689,
+        "lng": -96.750635802997,
+        "matched_address": "6401 INDEPENDENCE PKWY, PLANO, TX, 75023",
+        "geocoder": "US Census Geocoder (Public_AR_Current)",
+        "note": null
+      },
+      "phone": "214-269-0906",
+      "phone_label": "North Texas Food Bank Benefits Call Center",
+      "website": "https://www.planomasjid.org/",
+      "email": "snap@ntfb.org",
+      "hours_text": "Call for Information",
+      "schedule": [],
+      "schedule_basis": null,
+      "hours_notes": [
+        "Call for Information"
+      ],
+      "closures": [],
+      "appointment": null,
+      "notes": []
+    }
+  ],
+  "skipped": []
+}

@@ -1,0 +1,68 @@
+/* Food resources — same palette as heatmap.css / chat.css */
+.ffr-panel { margin-top: 12px; border: 2px solid #2b3a2b; background: #f7f3e6; color: #2b3a2b; padding: 14px 16px; }
+.ffr-panel :focus-visible { outline: 3px solid #8db05e; outline-offset: 2px; }
+.ffr-head h2 { margin: 0 0 4px; font-size: 16px; }
+.ffr-head p { margin: 0 0 10px; font-size: 13px; color: #4a4a3a; }
+
+.ffr-form { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-end; }
+.ffr-form > label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; }
+.ffr-form select { font: inherit; font-size: 13px; padding: 6px 8px; border: 2px solid #cfc6aa; background: #fffdf5; color: #2b3a2b; border-radius: 0; min-height: 36px; }
+.ffr-form fieldset { border: 1px solid #cfc6aa; padding: 6px 10px; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.ffr-form legend { font-size: 12px; font-weight: 600; padding: 0 4px; }
+.ffr-check { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; min-height: 28px; }
+.ffr-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ffr-actions button, .ffr-error button, .ffr-show {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 12px;
+  border: 2px solid #2b3a2b; background: #fffdf5; color: #2b3a2b; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.ffr-actions .ffr-primary { background: #2b3a2b; color: #f7f3e6; }
+.ffr-actions button:disabled { opacity: .5; cursor: not-allowed; }
+.ffr-form-error { flex-basis: 100%; margin: 0; color: #5a1a12; font-size: 13px; }
+
+.ffr-status { margin: 12px 0 8px; font-size: 13px; font-weight: 600; min-height: 1.2em; }
+.ffr-error { padding: 10px 12px; background: #fbe9e5; border: 2px solid #8a2a1f; color: #5a1a12; }
+.ffr-error p { margin: 0 0 8px; display: flex; gap: 6px; align-items: flex-start; }
+.ffr-source { font-size: 12px; margin: 0 0 10px; padding: 8px 10px; background: #e9e3cb; }
+.ffr-source.ffr-warn { border-left: 4px solid #b8801f; }
+.ffr-empty { font-size: 13px; padding: 10px; border: 1px dashed #2b3a2b; }
+
+.ffr-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.ffr-card { height: 100%; box-sizing: border-box; padding: 10px 12px; background: #fffdf5; border: 2px solid #cfc6aa; font-size: 13px; }
+.ffr-card-selected { border-color: #2b3a2b; box-shadow: 3px 3px 0 #8db05e; }
+.ffr-card h3 { margin: 6px 0 2px; font-size: 14px; }
+.ffr-card p { margin: 3px 0; display: flex; gap: 5px; align-items: baseline; flex-wrap: wrap; }
+.ffr-card details { margin-top: 6px; }
+.ffr-card summary { cursor: pointer; font-weight: 600; font-size: 12.5px; }
+.ffr-card-top { display: flex; justify-content: space-between; gap: 6px; align-items: center; }
+.ffr-tag { font-size: 11px; padding: 1px 6px; border: 1px solid; }
+.ffr-tag-food_distribution { background: #e6edcb; border-color: #4e7040; color: #2e4a2a; }
+.ffr-tag-snap_application_help { background: #dcebf4; border-color: #2a6f97; color: #12405f; }
+.ffr-tag-senior_food_box { background: #f5e8c6; border-color: #8a5a12; color: #5c3a06; }
+.ffr-tag-other_services { background: #eeeeee; border-color: #6b6b6b; color: #333; }
+.ffr-dist { font-size: 12px; font-weight: 600; }
+.ffr-program { font-style: italic; }
+.ffr-muted { color: #5e5c47; font-size: 12px; }
+.ffr-day { padding: 3px 6px; background: #f0ece0; }
+.ffr-day-listed_closed { background: #fbe9e5; }
+.ffr-appt { font-weight: 600; }
+.ffr-show { margin-top: 8px; min-height: 32px; }
+.ffr-more { margin-top: 12px; }
+.ffr-more > summary { cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 8px; }
+
+/* Map markers: a dark square pin, clearly different from the choropleth fill. */
+.ffr-marker { background: none; border: 0; }
+.ffr-pin {
+  display: flex; align-items: center; justify-content: center; width: 22px; height: 22px;
+  background: #1e2a1e; color: #f7f3e6; border: 2px solid #f7f3e6; box-shadow: 0 0 0 2px #1e2a1e;
+  font: 700 11px sans-serif; border-radius: 3px;
+}
+.ffr-selected .ffr-pin { background: #8db05e; color: #1e2a1e; box-shadow: 0 0 0 3px #1e2a1e; }
+.leaflet-marker-icon.ffr-marker:focus-visible { outline: 3px solid #8db05e; }
+.ffr-popup ul { padding-left: 16px; margin: 6px 0; }
+.ffr-popup small { color: #5e5c47; }
+.ffr-pop-cat { font-size: 11px; color: #5e5c47; }
+
+@media (max-width: 600px) {
+  .ffr-form > label, .ffr-form fieldset { flex-basis: 100%; }
+  .ffr-form select { width: 100%; }
+}
