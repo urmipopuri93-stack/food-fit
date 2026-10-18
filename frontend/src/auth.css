@@ -1,0 +1,23 @@
+.auth-page {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  padding: clamp(20px, 5vw, 56px) 16px;
+  background: #ece7d3;
+  color: #2a2b25;
+  font-family: "Chakra Petch", sans-serif;
+}
+.auth-content { width: min(100%, 440px); display: grid; justify-items: center; gap: 20px; }
+.auth-content h1 { font-size: clamp(28px, 7vw, 40px); font-weight: 700; text-shadow: 2px 2px #8bae5f; }
+.auth-home { justify-self: start; }
+.auth-message { margin: auto; max-width: 540px; padding: 24px; border: 2px solid #2a2b25; line-height: 1.7; overflow-wrap: anywhere; }
+.auth-message h1 { font-size: 24px; font-weight: 700; }
+.auth-message p { margin: 16px 0; }
+.auth-page a { text-decoration: underline; text-underline-offset: 4px; }
+a:focus-visible { outline: 3px solid #3e5c34; outline-offset: 4px; }
+.auth-page a:hover { color: #3e5c34; }
+.account-controls { display: flex; align-items: center; padding: 8px; }
+a.nav-tab { text-decoration: none; }

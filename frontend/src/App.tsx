@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { UserButton } from "@clerk/react";
 import foodfitDrawing from "../assets/Untitled 10.png";
 
 import {
@@ -265,6 +267,7 @@ function App() {
 
           <nav className="navigation-links" aria-label="Main navigation">
             {navigation.map(({ label, icon: Icon, active }) => (
+              label === "Planner" || active ? <Link key={label} to={active ? "/dashboard" : "/heatmap"} className={`nav-tab ${active ? "active" : ""}`} aria-current={active ? "page" : undefined}><Icon size={16} /><span>{label}</span></Link> :
               <button
                 key={label}
                 type="button"
@@ -280,6 +283,7 @@ function App() {
             ))}
           </nav>
 
+          <div className="account-controls"><UserButton /></div>
           <div className="nav-slogan">
             GOOD FOOD
             <br />
